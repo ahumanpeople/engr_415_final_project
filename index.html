@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Sense Hat — ENGR 415 Mechatronics</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- ─── NAV ─────────────────────────────────────────────────────── -->
+  <nav id="navbar">
+    <div class="nav-inner">
+      <span class="nav-logo">The Sense Hat</span>
+      <button class="nav-toggle" aria-label="Toggle menu" id="navToggle">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#overview">Overview</a></li>
+        <li><a href="#mechanical">Mechanical</a></li>
+        <li><a href="#electrical">Electrical</a></li>
+        <li><a href="#software">Software</a></li>
+        <li><a href="#results">Results</a></li>
+        <li><a href="#team">Team</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ─── HERO ─────────────────────────────────────────────────────── -->
+  <header class="hero">
+    <div class="hero-inner">
+      <p class="hero-label">ENGR 415 · Mechatronics · SFSU · Spring 2026</p>
+      <h1 class="hero-title">The Sense Hat</h1>
+      <p class="hero-subtitle">
+        A 360° haptic obstacle detection system for visually impaired navigation,
+        built into a wide-brimmed hat using Time-of-Flight sensors and an STM32 microcontroller.
+      </p>
+      <div class="hero-meta">
+        <span>Milton Tinoco</span>
+        <span class="sep">·</span>
+        <span>Kevin Huang</span>
+        <span class="sep">·</span>
+        <span>Jose Barrios</span>
+      </div>
+      <a href="#overview" class="btn-primary">Explore the Project</a>
+    </div>
+
+    <!-- Hero image placeholder -->
+    <div class="hero-image-wrap">
+      <figure class="img-block hero-img">
+        <div class="img-placeholder">
+          <span class="img-placeholder-icon">🎩</span>
+          <span>Hero image — assembled Sense Hat</span>
+          <code>Replace src in &lt;img&gt; below</code>
+        </div>
+        <!-- <img src="images/hero-hat.jpg" alt="The Sense Hat assembled" /> -->
+      </figure>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ─── OVERVIEW ──────────────────────────────────────────────── -->
+    <section id="overview" class="section">
+      <div class="section-inner">
+        <h2 class="section-title">Overview</h2>
+
+        <div class="prose">
+          <p>
+            Approximately 216 million people worldwide live with some form of visual impairment.
+            Current navigation aids — most notably the white cane — provide only limited environmental
+            awareness and require dedicated training. The Sense Hat addresses this gap by embedding
+            a full 360° obstacle-detection system inside a discreet, everyday wide-brimmed hat.
+          </p>
+          <p>
+            When the user approaches an obstacle, vibration motors integrated into the hat's brim
+            activate with an intensity that scales proportionally to proximity. The user receives
+            spatial, directional feedback without any visual component — no screen, no audio, no
+            device that draws attention in public.
+          </p>
+        </div>
+
+        <h3 class="subsection-title">Design Objectives</h3>
+        <div class="card-grid three-col">
+          <div class="card">
+            <div class="card-icon">⚡</div>
+            <h4>Reliability</h4>
+            <p>Consistently detects nearby obstacles during indoor navigation and scales haptic
+            intensity with distance, so the user always knows how close they are.</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">🎩</div>
+            <h4>Discreet &amp; Portable</h4>
+            <p>All electronics are concealed inside the hat's crown and brim. The assembled
+            device remains lightweight and suitable for all-day wear.</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">💰</div>
+            <h4>Affordability</h4>
+            <p>Designed with low-cost, off-the-shelf components. Total BOM cost comes in at
+            approximately <strong>$157</strong>, making it accessible for real-world adoption.</p>
+          </div>
+        </div>
+
+        <!-- Overview diagram placeholder -->
+        <figure class="img-block">
+          <div class="img-placeholder">
+            <span class="img-placeholder-icon">🗺️</span>
+            <span>Top-view operation diagram — hat detecting walls &amp; person</span>
+            <code>Replace with: &lt;img src="images/overview-topview.jpg" alt="..." /&gt;</code>
+          </div>
+          <!-- <img src="images/overview-topview.jpg" alt="Top-view of the hat detecting surrounding obstacles" /> -->
+          <figcaption>Top-view representation of the Sense Hat during operation. The system
+          detects walls to the north and west and a person to the east, activating the
+          corresponding vibration motors simultaneously.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ─── MECHANICAL ─────────────────────────────────────────────── -->
+    <section id="mechanical" class="section section-alt">
+      <div class="section-inner">
+        <h2 class="section-title">Mechanical Design</h2>
+
+        <div class="prose">
+          <p>
+            The mechanical design is centered on a classic wide-brimmed black fedora, fully
+            modeled in SolidWorks. The goal was to conceal every electronic component while
+            keeping them accessible for maintenance and iteration.
+          </p>
+          <p>
+            Three VL53L5CX-SATEL Time-of-Flight sensors are mounted along the brim — two at
+            the front for coverage of the user's primary field of motion and one at the rear —
+            providing a near-360° sensing arc. Eight ERM haptic vibration motors are secured just
+            above the brim's inner edge, each corresponding to a directional zone.
+          </p>
+          <p>
+            The STM32 microcontroller and LiPo battery are housed in a laser-cut basswood
+            enclosure mounted on top of the hat's crown. Basswood was selected for its ease of
+            laser-cutting at small scales and adequate thermal dissipation for outdoor use. 3D-printed
+            PLA spacers create the necessary clearance to sandwich the battery and MCU board within
+            the enclosure.
+          </p>
+        </div>
+
+        <!-- CAD model images -->
+        <div class="img-row">
+          <figure class="img-block">
+            <div class="img-placeholder">
+              <span class="img-placeholder-icon">🔩</span>
+              <span>SolidWorks model — front view</span>
+              <code>&lt;img src="images/cad-front.jpg" alt="..." /&gt;</code>
+            </div>
+            <!-- <img src="images/cad-front.jpg" alt="SolidWorks front view of the hat" /> -->
+            <figcaption><strong>Fig. 1a</strong> — Front view. ToF Sensors 1 &amp; 2 visible at left-front
+            and right-front positions. MCU + Battery housing mounted on crown.</figcaption>
+          </figure>
+          <figure class="img-block">
+            <div class="img-placeholder">
+              <span class="img-placeholder-icon">🔩</span>
+              <span>SolidWorks model — back view</span>
+              <code>&lt;img src="images/cad-back.jpg" alt="..." /&gt;</code>
+            </div>
+            <!-- <img src="images/cad-back.jpg" alt="SolidWorks back view of the hat" /> -->
+            <figcaption><strong>Fig. 1b</strong> — Back view. ToF Sensor 3 positioned at rear of brim
+            to complete rear-hemisphere coverage.</figcaption>
+          </figure>
+        </div>
+
+        <div class="img-row">
+          <figure class="img-block">
+            <div class="img-placeholder">
+              <span class="img-placeholder-icon">⚙️</span>
+              <span>Underside view — haptic motors &amp; FSR sensors</span>
+              <code>&lt;img src="images/underside-left.jpg" alt="..." /&gt;</code>
+            </div>
+            <!-- <img src="images/underside-left.jpg" alt="Underside view showing haptic motors" /> -->
+            <figcaption><strong>Fig. 2a</strong> — Underside rear view. Haptic vibration motors at
+            back-left and back-right positions, seated just above the inner brim.</figcaption>
+          </figure>
+          <figure class="img-block">
+            <div class="img-placeholder">
+              <span class="img-placeholder-icon">⚙️</span>
+              <span>Underside view — front FSR sensors</span>
+              <code>&lt;img src="images/underside-right.jpg" alt="..." /&gt;</code>
+            </div>
+            <!-- <img src="images/underside-right.jpg" alt="Underside view showing FSR sensors" /> -->
+            <figcaption><strong>Fig. 2b</strong> — Underside front view. FSR pressure sensors on the
+            inner brim detect when the hat is being worn, enabling automatic power control.</figcaption>
+          </figure>
+        </div>
+
+        <h3 class="subsection-title">Bill of Materials — Mechanical</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Part</th>
+                <th>Description</th>
+                <th>Vendor</th>
+                <th>Unit Price</th>
+                <th>Qty</th>
+                <th>Subtotal</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>Mini Vibration Motors</td>
+                <td>DC 3V 12000rpm Flat Coin Button Haptic (10-Pack)</td>
+                <td>Amazon</td>
+                <td>$5.99</td>
+                <td>1</td>
+                <td>$5.99</td>
+              </tr>
+              <tr>
+                <td>6</td>
+                <td>Black Fedora Flat Hat</td>
+                <td>Classic Wide Brim Cap</td>
+                <td>Amazon</td>
+                <td>$17.99</td>
+                <td>1</td>
+                <td>$17.99</td>
+              </tr>
+              <tr>
+                <td>9</td>
+                <td>S8050 NPN Transistor</td>
+                <td>Motor driver transistor</td>
+                <td>In-house</td>
+                <td>—</td>
+                <td>8</td>
+                <td>$0</td>
+              </tr>
+              <tr>
+                <td>12</td>
+                <td>Basswood Sheets 3mm</td>
+                <td>12″×16″ hardwood for laser-cut housing</td>
+                <td>Amazon</td>
+                <td>$16.99</td>
+                <td>1</td>
+                <td>$16.99</td>
+              </tr>
+              <tr>
+                <td>13</td>
+                <td>Bambu PLA Filament</td>
+                <td>1 kg spool for 3D-printed spacers</td>
+                <td>In-house</td>
+                <td>—</td>
+                <td>—</td>
+                <td>$0</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── ELECTRICAL ─────────────────────────────────────────────── -->
+    <section id="electrical" class="section">
+      <div class="section-inner">
+        <h2 class="section-title">Electrical Design</h2>
+
+        <div class="prose">
+          <p>
+            The system is built around an <strong>STM32L476RG Nucleo board</strong>, selected
+            for its faster ARM Cortex-M4 architecture over Arduino — necessary to simultaneously
+            interpret 16+ data points from multiple ToF sensors and drive 8 independent haptic
+            motor channels in real time.
+          </p>
+          <p>
+            Each VL53L5CX-SATEL sensor communicates over <strong>I²C</strong>, sharing the bus
+            with address-select lines to differentiate between units. Motor control is handled via
+            <strong>8 GPIO pins configured for PWM output</strong>, each driving an S8050 NPN
+            transistor that amplifies the MCU's logic-level current to the motor. A 1N4148 flyback
+            diode in parallel with every motor protects against reverse-voltage spikes.
+          </p>
+          <p>
+            Power is supplied by a <strong>3.7 V / 3000 mAh LiPo</strong> cell boosted to 5 V
+            by an MT3608 DC-DC converter. FSR pressure sensors on the brim's inner edge trigger
+            hardware interrupts to wake or sleep the system — a 1 kΩ pull-up resistor prevents
+            signal jitter at each FSR node.
+          </p>
+        </div>
+
+        <!-- Schematic placeholder -->
+        <figure class="img-block">
+          <div class="img-placeholder">
+            <span class="img-placeholder-icon">⚡</span>
+            <span>Electrical schematic — STM32 + ToF sensor + motor driver circuit</span>
+            <code>&lt;img src="images/schematic.jpg" alt="..." /&gt;</code>
+          </div>
+          <!-- <img src="images/schematic.jpg" alt="Electrical schematic for the Sense Hat system" /> -->
+          <figcaption><strong>Fig. 3</strong> — Electrical schematic showing one representative set of
+          connections: 3.7 V→5 V boost converter, STM32L476RG Nucleo, VL53L5CX-SATEL ToF sensor,
+          S8050 NPN motor driver with flyback diode, and FSR pressure switch. All remaining sensor
+          and motor channels are electrically identical.</figcaption>
+        </figure>
+
+        <h3 class="subsection-title">Power Budget</h3>
+        <div class="card-grid two-col">
+          <div class="card">
+            <h4>Average Load</h4>
+            <div class="power-table">
+              <div class="power-row"><span>4 × ToF Sensors</span><span>400 mA</span></div>
+              <div class="power-row"><span>8 × Haptic Motors</span><span>360 mA</span></div>
+              <div class="power-row"><span>STM32 MCU</span><span>60 mA</span></div>
+              <div class="power-row total"><span>Total</span><span>820 mA</span></div>
+              <div class="power-row"><span>Average Power</span><span>4.1 W</span></div>
+            </div>
+          </div>
+          <div class="card">
+            <h4>Peak Load</h4>
+            <div class="power-table">
+              <div class="power-row"><span>4 × ToF Sensors</span><span>600 mA</span></div>
+              <div class="power-row"><span>8 × Haptic Motors</span><span>960 mA</span></div>
+              <div class="power-row"><span>STM32 MCU</span><span>80 mA</span></div>
+              <div class="power-row total"><span>Total</span><span>1.64 A</span></div>
+              <div class="power-row"><span>Peak Power</span><span>~8.2 W</span></div>
+            </div>
+          </div>
+        </div>
+
+        <h3 class="subsection-title">Estimated Runtime — 3000 mAh Battery</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Usage Pattern</th><th>Estimated Runtime</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Always On (100%)</td><td>2.3 hrs</td></tr>
+              <tr><td>Active 50%</td><td>4.6 hrs</td></tr>
+              <tr><td>Active 25%</td><td>9 hrs</td></tr>
+              <tr><td>Active 10%</td><td>23 hrs</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="subsection-title">Bill of Materials — Electrical</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Part</th>
+                <th>Description</th>
+                <th>Vendor</th>
+                <th>Unit Price</th>
+                <th>Qty</th>
+                <th>Subtotal</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>2</td>
+                <td>VL53L5CX-SATEL</td>
+                <td>Multi-zone Time-of-Flight sensor</td>
+                <td>Digikey</td>
+                <td>$19.74</td>
+                <td>3</td>
+                <td>$59.22</td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>USB Mini Pigtail Cable</td>
+                <td>Mini USB to 2-pin battery lead (2-Pack)</td>
+                <td>Amazon</td>
+                <td>$11.99</td>
+                <td>1</td>
+                <td>$11.99</td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <td>3.7 V 3000 mAh LiPo</td>
+                <td>Rechargeable lithium-polymer battery (4-Pack)</td>
+                <td>Amazon</td>
+                <td>$25.99</td>
+                <td>1</td>
+                <td>$25.99</td>
+              </tr>
+              <tr>
+                <td>5</td>
+                <td>MT3608 Boost Converter</td>
+                <td>3.7 V → 5 V DC-DC step-up, 2 A peak (10-Pack)</td>
+                <td>Amazon</td>
+                <td>$6.99</td>
+                <td>1</td>
+                <td>$6.99</td>
+              </tr>
+              <tr>
+                <td>7</td>
+                <td>FSR Thin Film Pressure Sensor</td>
+                <td>0.4 mm, 20 g–2 kg range (4-Pack)</td>
+                <td>Amazon</td>
+                <td>$11.99</td>
+                <td>1</td>
+                <td>$11.99</td>
+              </tr>
+              <tr>
+                <td>8</td>
+                <td>STM32L476RG</td>
+                <td>ARM Cortex-M4 Nucleo microcontroller</td>
+                <td>In-house</td>
+                <td>—</td>
+                <td>1</td>
+                <td>$0</td>
+              </tr>
+              <tr>
+                <td>10</td>
+                <td>1N4148 Diode</td>
+                <td>Flyback protection diode</td>
+                <td>In-house</td>
+                <td>—</td>
+                <td>8</td>
+                <td>$0</td>
+              </tr>
+              <tr>
+                <td>11</td>
+                <td>1 kΩ Resistor</td>
+                <td>Base resistor for NPN transistor</td>
+                <td>In-house</td>
+                <td>—</td>
+                <td>8</td>
+                <td>$0</td>
+              </tr>
+              <tr class="total-row">
+                <td colspan="6"><strong>Total Project Cost</strong></td>
+                <td><strong>$157.15</strong></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── SOFTWARE ───────────────────────────────────────────────── -->
+    <section id="software" class="section section-alt">
+      <div class="section-inner">
+        <h2 class="section-title">Software Design</h2>
+
+        <div class="prose">
+          <p>
+            The embedded firmware is structured as a <strong>finite state machine (FSM)</strong>
+            that manages the full sensing-to-feedback pipeline. The system boots into a low-power
+            idle state and activates only when the FSR sensors detect the hat being worn — reducing
+            battery consumption during periods of non-use.
+          </p>
+        </div>
+
+        <h3 class="subsection-title">Embedded System Requirements</h3>
+        <div class="tag-list">
+          <span class="tag">2× interrupt signals (FSR wear detection)</span>
+          <span class="tag">I²C bus (4 ToF sensors)</span>
+          <span class="tag">8× PWM GPIO (haptic motors)</span>
+          <span class="tag">UART (debug/PC comms)</span>
+          <span class="tag">Low-power sleep modes</span>
+          <span class="tag">60 Hz sampling timer</span>
+        </div>
+
+        <!-- FSM diagram placeholder -->
+        <figure class="img-block">
+          <div class="img-placeholder">
+            <span class="img-placeholder-icon">🔄</span>
+            <span>Finite State Machine diagram</span>
+            <code>&lt;img src="images/fsm-diagram.jpg" alt="..." /&gt;</code>
+          </div>
+          <!-- <img src="images/fsm-diagram.jpg" alt="Finite State Diagram for Embedded System Software" /> -->
+          <figcaption><strong>Fig. 5</strong> — Finite State Diagram for the embedded system.
+          Pressure detection triggers the Start → Collect Data → Process Data → Set/Update PWM
+          loop. Loss of hat pressure at any state routes to Stop.</figcaption>
+        </figure>
+
+        <h3 class="subsection-title">Sensor Spatial Mapping</h3>
+        <div class="prose">
+          <p>
+            Each VL53L5CX-SATEL operates in a 3×3 multi-zone mode, returning 9 simultaneous
+            distance measurements per sensor. With three sensors, the system collects up to
+            27 depth values per frame at up to 60 Hz.
+          </p>
+          <p>
+            A <strong>majority-voting filter</strong> is applied across 5–10 consecutive frames:
+            for each spatial zone, the most frequently occurring distance value is selected as the
+            representative reading. This eliminates noise and outlier measurements before the
+            system decides whether to activate a motor — improving reliability and reducing
+            false triggers.
+          </p>
+        </div>
+
+        <!-- Sensor visualization placeholder -->
+        <figure class="img-block">
+          <div class="img-placeholder">
+            <span class="img-placeholder-icon">📡</span>
+            <span>Sensor zone visualization — multi-zone depth mapping</span>
+            <code>&lt;img src="images/sensor-zones.jpg" alt="..." /&gt;</code>
+          </div>
+          <!-- <img src="images/sensor-zones.jpg" alt="Sensor zone visualization" /> -->
+          <figcaption><strong>Fig. 4</strong> — Visualization of multi-zone sensing coverage.
+          Each sensor returns a 3×3 matrix of depth readings, organized into an array
+          representing the spatial environment around the hat.</figcaption>
+        </figure>
+
+        <h3 class="subsection-title">Control Pseudocode</h3>
+        <pre class="code-block"><code>Interrupt — Start on Pressure Detected
+
+LOOP  // Sensor collection
+    New readings → Map[8×4]  (4 sensors × 8 zones)
+    SAVE MAP[1], MAP[2], MAP[3], MAP[4]
+    COMPARE MAPS  (majority voting)
+    Final MAP READY
+END LOOP
+
+LOOP  // Motor control
+    RESTART GPIO
+    NearDistance[32] = 0
+    NearLocation[32] = 0
+
+    FOR each zone i in Map:
+        IF Map[i] &lt; threshold (e.g. 3 m):
+            NearDistance[i] = Map[i]
+            NearLocation[i] = i
+
+    SWITCH NearLocation:
+        CASE 1–8:
+            Set PWM duty cycle ∝ NearDistance strength
+            WAIT 50 ms
+            RESTART GPIO
+END LOOP
+
+Interrupt — Stop on No Pressure Detected</code></pre>
+
+        <div class="prose">
+          <p>
+            At the end of each control cycle, all GPIO outputs are reset to logic-low as a safety
+            measure. A watchdog timer resets the system if any loop stalls, ensuring the device
+            never locks up in an uncontrolled state.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── RESULTS ────────────────────────────────────────────────── -->
+    <section id="results" class="section">
+      <div class="section-inner">
+        <h2 class="section-title">Results &amp; Evaluation</h2>
+
+        <div class="prose">
+          <p>
+            Performance evaluation is grounded in the original design objectives. The primary
+            test consists of a controlled navigation experiment: a participant wearing the Sense
+            Hat attempts to move from a start point to a destination with eyes closed, relying
+            solely on haptic feedback. Observations are recorded across multiple trials in
+            different environments with varying obstacle configurations.
+          </p>
+        </div>
+
+        <!-- Results image placeholder -->
+        <figure class="img-block">
+          <div class="img-placeholder">
+            <span class="img-placeholder-icon">🧪</span>
+            <span>Testing photo — user navigating with the Sense Hat</span>
+            <code>&lt;img src="images/testing.jpg" alt="..." /&gt;</code>
+          </div>
+          <!-- <img src="images/testing.jpg" alt="User wearing and testing the Sense Hat" /> -->
+          <figcaption>Controlled navigation test with a participant relying on haptic feedback
+          alone to avoid obstacles.</figcaption>
+        </figure>
+
+        <h3 class="subsection-title">Evaluation Criteria</h3>
+        <div class="card-grid three-col">
+          <div class="card">
+            <div class="card-icon">👁️</div>
+            <h4>Discreteness</h4>
+            <p>Visual inspection of the final product confirms that no electronic components
+            are visible from the outside. The hat appearance is consistent with a standard
+            wide-brimmed fedora.</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">🎯</div>
+            <h4>Navigation Reliability</h4>
+            <p>Participants are assessed on whether they can correctly interpret haptic direction
+            and intensity cues to reach a destination and avoid obstacles without sight.</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">⚖️</div>
+            <h4>Wearability</h4>
+            <p>The assembled hat is evaluated for comfort, weight distribution, and ease of
+            donning and doffing — including automatic on/off via FSR pressure sensing.</p>
+          </div>
+        </div>
+
+        <h3 class="subsection-title">Known Challenges</h3>
+        <div class="challenge-list">
+          <div class="challenge">
+            <span class="challenge-label">Moisture &amp; Sweat</span>
+            <p>Electronic components must be insulated from direct contact with the user's skin.
+            The laser-cut housing provides a physical barrier while allowing passive heat
+            dissipation from the MCU and battery.</p>
+          </div>
+          <div class="challenge">
+            <span class="challenge-label">Hat Orientation</span>
+            <p>Directional sensing accuracy depends on the hat remaining approximately level.
+            Tilting or rotating the hat could cause false-positive detections in unintended
+            zones. User awareness of proper positioning is the primary mitigation strategy.</p>
+          </div>
+          <div class="challenge">
+            <span class="challenge-label">Power Management</span>
+            <p>The STM32 is configured for low-power sleep whenever the hat is removed. Active
+            run time is approximately 2.3 hours at full load; upgrading to a 6000 mAh cell
+            doubles this to ~4.6 hours.</p>
+          </div>
+        </div>
+
+        <!-- Additional results photos -->
+        <div class="img-row">
+          <figure class="img-block">
+            <div class="img-placeholder">
+              <span class="img-placeholder-icon">📷</span>
+              <span>Build photo — electronics assembly</span>
+              <code>&lt;img src="images/build-electronics.jpg" alt="..." /&gt;</code>
+            </div>
+            <!-- <img src="images/build-electronics.jpg" alt="Electronics assembly" /> -->
+            <figcaption>Electronics assembly on breadboard prior to integration into the hat.</figcaption>
+          </figure>
+          <figure class="img-block">
+            <div class="img-placeholder">
+              <span class="img-placeholder-icon">📷</span>
+              <span>Build photo — laser-cut housing</span>
+              <code>&lt;img src="images/build-housing.jpg" alt="..." /&gt;</code>
+            </div>
+            <!-- <img src="images/build-housing.jpg" alt="Laser-cut basswood housing" /> -->
+            <figcaption>Laser-cut basswood housing for the STM32 Nucleo board and LiPo battery,
+            mounted on the hat's crown.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── TEAM ───────────────────────────────────────────────────── -->
+    <section id="team" class="section section-alt">
+      <div class="section-inner">
+        <h2 class="section-title">Team</h2>
+        <p class="section-intro">
+          The Sense CARE Team — ENGR 415 Mechatronics, San Francisco State University,
+          Spring 2026. Advised by David Quintero, Ph.D.
+        </p>
+
+        <div class="team-grid">
+
+          <div class="team-card">
+            <figure class="team-photo">
+              <div class="img-placeholder small">
+                <span class="img-placeholder-icon">👤</span>
+                <code>images/team-milton.jpg</code>
+              </div>
+              <!-- <img src="images/team-milton.jpg" alt="Milton Tinoco" /> -->
+            </figure>
+            <h3>Milton Tinoco</h3>
+            <p class="team-role">Software Lead</p>
+            <p>Responsible for embedded system software architecture, finite state machine
+            implementation, sensor communication libraries, and full system integration &amp;
+            debugging at the firmware level.</p>
+          </div>
+
+          <div class="team-card">
+            <figure class="team-photo">
+              <div class="img-placeholder small">
+                <span class="img-placeholder-icon">👤</span>
+                <code>images/team-kevin.jpg</code>
+              </div>
+              <!-- <img src="images/team-kevin.jpg" alt="Kevin Huang" /> -->
+            </figure>
+            <h3>Kevin Huang</h3>
+            <p class="team-role">Electrical Lead</p>
+            <p>Responsible for power architecture and circuit design, electrical schematics,
+            component selection, breadboard prototyping, and testing &amp; debugging of all
+            electronic subsystems.</p>
+          </div>
+
+          <div class="team-card">
+            <figure class="team-photo">
+              <div class="img-placeholder small">
+                <span class="img-placeholder-icon">👤</span>
+                <code>images/team-jose.jpg</code>
+              </div>
+              <!-- <img src="images/team-jose.jpg" alt="Jose Barrios" /> -->
+            </figure>
+            <h3>Jose Barrios</h3>
+            <p class="team-role">Mechanical Lead</p>
+            <p>Responsible for the MCU and battery enclosure design, sensor and motor mounting
+            on the hat, component concealment, and mechanical testing &amp; structural debugging.</p>
+          </div>
+
+        </div>
+
+        <div class="acknowledgement">
+          <p>
+            <strong>Course:</strong> ENGR 415-01 Mechatronics Lab &nbsp;·&nbsp;
+            <strong>Instructor:</strong> David Quintero, Ph.D. &nbsp;·&nbsp;
+            <strong>Institution:</strong> San Francisco State University, School of Engineering
+          </p>
+          <p>Final Demo: April 28, 2026 &nbsp;·&nbsp; COSE Showcase: April 30, 2026</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ─── FOOTER ────────────────────────────────────────────────────── -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span>The Sense Hat &mdash; ENGR 415 · SFSU · Spring 2026</span>
+      <span>Sense CARE Team</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
