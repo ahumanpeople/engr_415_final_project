@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Sense Hat — SFSU Mechatronics (ENGR 415)</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <!-- https://html-preview.github.io/?url=https://github.com/ahumanpeople/engr_415_final_project/blob/main/index.html -->
+</head>
+<body>
+
+  <!-- ─── NAV ─────────────────────────────────────────────────────── -->
+  <nav id="navbar">
+    <div class="nav-inner">
+      <span class="nav-logo">The Sense Hat</span>
+      <button class="nav-toggle" aria-label="Toggle menu" id="navToggle">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Overview</a></li>
+        <li><a href="mechanical.html">Mechanical</a></li>
+        <li><a href="electrical.html">Electrical</a></li>
+        <li><a href="software.html">Software</a></li>
+        <li><a href="results.html">Results</a></li>
+        <li><a href="team.html">Team</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- ─── RESULTS ────────────────────────────────────────────────── -->
+    <section id="results" class="section">
+      <div class="section-inner">
+        <h2 class="section-title">Results &amp; Evaluation</h2>
+
+        <div class="prose">
+          <p>
+            Performance evaluation is grounded in the original design objectives. The primary
+            test consists of a controlled navigation experiment: a participant wearing the Sense
+            Hat attempts to move from a start point to a destination with eyes closed, relying
+            solely on haptic feedback. Observations are recorded across multiple trials in
+            different environments with varying obstacle configurations.
+          </p>
+        </div>
+
+        <!-- Results image placeholder -->
+        <figure class="img-block">
+          <div class="img-placeholder">
+            <span class="img-placeholder-icon">🧪</span>
+            <span>Testing photo — user navigating with the Sense Hat</span>
+            <code>&lt;img src="images/testing.jpg" alt="..." /&gt;</code>
+          </div>
+          <!-- <img src="images/testing.jpg" alt="User wearing and testing the Sense Hat" /> -->
+          <figcaption>Controlled navigation test with a participant relying on haptic feedback
+          alone to avoid obstacles.</figcaption>
+        </figure>
+
+        <h3 class="subsection-title">Evaluation Criteria</h3>
+        <div class="card-grid three-col">
+          <div class="card">
+            <div class="card-icon">👁️</div>
+            <h4>Discreteness</h4>
+            <p>Visual inspection of the final product confirms that no electronic components
+            are visible from the outside. The hat appearance is consistent with a standard
+            wide-brimmed fedora.</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">🎯</div>
+            <h4>Navigation Reliability</h4>
+            <p>Participants are assessed on whether they can correctly interpret haptic direction
+            and intensity cues to reach a destination and avoid obstacles without sight.</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">⚖️</div>
+            <h4>Wearability</h4>
+            <p>The assembled hat is evaluated for comfort, weight distribution, and ease of
+            donning and doffing — including automatic on/off via FSR pressure sensing.</p>
+          </div>
+        </div>
+
+        <h3 class="subsection-title">Known Challenges</h3>
+        <div class="challenge-list">
+          <div class="challenge">
+            <span class="challenge-label">Moisture &amp; Sweat</span>
+            <p>Electronic components must be insulated from direct contact with the user's skin.
+            The laser-cut housing provides a physical barrier while allowing passive heat
+            dissipation from the MCU and battery.</p>
+          </div>
+          <div class="challenge">
+            <span class="challenge-label">Hat Orientation</span>
+            <p>Directional sensing accuracy depends on the hat remaining approximately level.
+            Tilting or rotating the hat could cause false-positive detections in unintended
+            zones. User awareness of proper positioning is the primary mitigation strategy.</p>
+          </div>
+          <div class="challenge">
+            <span class="challenge-label">Power Management</span>
+            <p>The STM32 is configured for low-power sleep whenever the hat is removed. Active
+            run time is approximately 2.3 hours at full load; upgrading to a 6000 mAh cell
+            doubles this to ~4.6 hours.</p>
+          </div>
+        </div>
+
+        <!-- Additional results photos -->
+        <div class="img-row">
+          <figure class="img-block">
+            <div class="img-placeholder">
+              <span class="img-placeholder-icon">📷</span>
+              <span>Build photo — electronics assembly</span>
+              <code>&lt;img src="images/build-electronics.jpg" alt="..." /&gt;</code>
+            </div>
+            <!-- <img src="images/build-electronics.jpg" alt="Electronics assembly" /> -->
+            <figcaption>Electronics assembly on breadboard prior to integration into the hat.</figcaption>
+          </figure>
+          <figure class="img-block">
+            <div class="img-placeholder">
+              <span class="img-placeholder-icon">📷</span>
+              <span>Build photo — laser-cut housing</span>
+              <code>&lt;img src="images/build-housing.jpg" alt="..." /&gt;</code>
+            </div>
+            <!-- <img src="images/build-housing.jpg" alt="Laser-cut basswood housing" /> -->
+            <figcaption>Laser-cut basswood housing for the STM32 Nucleo board and LiPo battery,
+            mounted on the hat's crown.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ─── FOOTER ────────────────────────────────────────────────────── -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span>The Sense Hat &mdash; ENGR 415 Mechatronics · SFSU SoE · Spring 2026</span>
+      <span>Sense CARE Team</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

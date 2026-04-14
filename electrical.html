@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Sense Hat — SFSU Mechatronics (ENGR 415)</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <!-- https://html-preview.github.io/?url=https://github.com/ahumanpeople/engr_415_final_project/blob/main/index.html -->
+</head>
+<body>
+
+  <!-- ─── NAV ─────────────────────────────────────────────────────── -->
+  <nav id="navbar">
+    <div class="nav-inner">
+      <span class="nav-logo">The Sense Hat</span>
+      <button class="nav-toggle" aria-label="Toggle menu" id="navToggle">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Overview</a></li>
+        <li><a href="mechanical.html">Mechanical</a></li>
+        <li><a href="electrical.html">Electrical</a></li>
+        <li><a href="software.html">Software</a></li>
+        <li><a href="results.html">Results</a></li>
+        <li><a href="team.html">Team</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- ─── ELECTRICAL ─────────────────────────────────────────────── -->
+    <section id="electrical" class="section">
+      <div class="section-inner">
+        <h2 class="section-title">Electrical Design</h2>
+
+        <div class="prose">
+          <p>
+            The system is built around an <strong>STM32L476RG Nucleo board</strong>, selected
+            for its faster ARM Cortex-M4 architecture over Arduino — necessary to simultaneously
+            interpret 16+ data points from multiple ToF sensors and drive 8 independent haptic
+            motor channels in real time.
+          </p>
+          <p>
+            Each VL53L5CX-SATEL sensor communicates over <strong>I²C</strong>, sharing the bus
+            with address-select lines to differentiate between units. Motor control is handled via
+            <strong>8 GPIO pins configured for PWM output</strong>, each driving an S8050 NPN
+            transistor that amplifies the MCU's logic-level current to the motor. A 1N4148 flyback
+            diode in parallel with every motor protects against reverse-voltage spikes.
+          </p>
+          <p>
+            Power is supplied by a <strong>3.7 V / 3000 mAh LiPo</strong> cell boosted to 5 V
+            by an MT3608 DC-DC converter. FSR pressure sensors on the brim's inner edge trigger
+            hardware interrupts to wake or sleep the system — a 1 kΩ pull-up resistor prevents
+            signal jitter at each FSR node.
+          </p>
+        </div>
+
+        <!-- Schematic placeholder -->
+        <figure class="img-block">
+          <div class="img-placeholder">
+            <span class="img-placeholder-icon">⚡</span>
+            <span>Electrical schematic — STM32 + ToF sensor + motor driver circuit</span>
+            <code>&lt;img src="images/schematic.jpg" alt="..." /&gt;</code>
+          </div>
+          <!-- <img src="images/schematic.jpg" alt="Electrical schematic for the Sense Hat system" /> -->
+          <figcaption><strong>Fig. 3</strong> — Electrical schematic showing one representative set of
+          connections: 3.7 V→5 V boost converter, STM32L476RG Nucleo, VL53L5CX-SATEL ToF sensor,
+          S8050 NPN motor driver with flyback diode, and FSR pressure switch. All remaining sensor
+          and motor channels are electrically identical.</figcaption>
+        </figure>
+
+        <h3 class="subsection-title">Power Budget</h3>
+        <div class="card-grid two-col">
+          <div class="card">
+            <h4>Average Load</h4>
+            <div class="power-table">
+              <div class="power-row"><span>4 × ToF Sensors</span><span>400 mA</span></div>
+              <div class="power-row"><span>8 × Haptic Motors</span><span>360 mA</span></div>
+              <div class="power-row"><span>STM32 MCU</span><span>60 mA</span></div>
+              <div class="power-row total"><span>Total</span><span>820 mA</span></div>
+              <div class="power-row"><span>Average Power</span><span>4.1 W</span></div>
+            </div>
+          </div>
+          <div class="card">
+            <h4>Peak Load</h4>
+            <div class="power-table">
+              <div class="power-row"><span>4 × ToF Sensors</span><span>600 mA</span></div>
+              <div class="power-row"><span>8 × Haptic Motors</span><span>960 mA</span></div>
+              <div class="power-row"><span>STM32 MCU</span><span>80 mA</span></div>
+              <div class="power-row total"><span>Total</span><span>1.64 A</span></div>
+              <div class="power-row"><span>Peak Power</span><span>~8.2 W</span></div>
+            </div>
+          </div>
+        </div>
+
+        <h3 class="subsection-title">Estimated Runtime — 3000 mAh Battery</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Usage Pattern</th><th>Estimated Runtime</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Always On (100%)</td><td>2.3 hrs</td></tr>
+              <tr><td>Active 50%</td><td>4.6 hrs</td></tr>
+              <tr><td>Active 25%</td><td>9 hrs</td></tr>
+              <tr><td>Active 10%</td><td>23 hrs</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="subsection-title">Bill of Materials — Electrical</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Part</th>
+                <th>Description</th>
+                <th>Vendor</th>
+                <th>Unit Price</th>
+                <th>Qty</th>
+                <th>Subtotal</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>2</td>
+                <td>VL53L5CX-SATEL</td>
+                <td>Multi-zone Time-of-Flight sensor</td>
+                <td>Digikey</td>
+                <td>$19.74</td>
+                <td>3</td>
+                <td>$59.22</td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>USB Mini Pigtail Cable</td>
+                <td>Mini USB to 2-pin battery lead (2-Pack)</td>
+                <td>Amazon</td>
+                <td>$11.99</td>
+                <td>1</td>
+                <td>$11.99</td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <td>3.7 V 3000 mAh LiPo</td>
+                <td>Rechargeable lithium-polymer battery (4-Pack)</td>
+                <td>Amazon</td>
+                <td>$25.99</td>
+                <td>1</td>
+                <td>$25.99</td>
+              </tr>
+              <tr>
+                <td>5</td>
+                <td>MT3608 Boost Converter</td>
+                <td>3.7 V → 5 V DC-DC step-up, 2 A peak (10-Pack)</td>
+                <td>Amazon</td>
+                <td>$6.99</td>
+                <td>1</td>
+                <td>$6.99</td>
+              </tr>
+              <tr>
+                <td>7</td>
+                <td>FSR Thin Film Pressure Sensor</td>
+                <td>0.4 mm, 20 g–2 kg range (4-Pack)</td>
+                <td>Amazon</td>
+                <td>$11.99</td>
+                <td>1</td>
+                <td>$11.99</td>
+              </tr>
+              <tr>
+                <td>8</td>
+                <td>STM32L476RG</td>
+                <td>ARM Cortex-M4 Nucleo microcontroller</td>
+                <td>In-house</td>
+                <td>—</td>
+                <td>1</td>
+                <td>$0</td>
+              </tr>
+              <tr>
+                <td>10</td>
+                <td>1N4148 Diode</td>
+                <td>Flyback protection diode</td>
+                <td>In-house</td>
+                <td>—</td>
+                <td>8</td>
+                <td>$0</td>
+              </tr>
+              <tr>
+                <td>11</td>
+                <td>1 kΩ Resistor</td>
+                <td>Base resistor for NPN transistor</td>
+                <td>In-house</td>
+                <td>—</td>
+                <td>8</td>
+                <td>$0</td>
+              </tr>
+              <tr class="total-row">
+                <td colspan="6"><strong>Total Project Cost</strong></td>
+                <td><strong>$157.15</strong></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+  <!-- ─── FOOTER ────────────────────────────────────────────────────── -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span>The Sense Hat &mdash; ENGR 415 Mechatronics · SFSU SoE · Spring 2026</span>
+      <span>Sense CARE Team</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

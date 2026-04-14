@@ -558,6 +558,26 @@ tbody tr:hover td { background: var(--accent-pale); }
   text-align: left;
 }
 
+.btn-contact {
+  display: inline-block;
+  margin-top: 0.5rem;
+  padding: 0.65rem 1.4rem;
+  background: var(--accent);
+  color: #fff;
+  border-radius: var(--radius);
+  font-size: 0.88rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  transition: background var(--transition), transform var(--transition);
+  align-self: center;
+}
+
+.btn-contact:hover {
+  background: var(--accent-mid);
+  text-decoration: none;
+  transform: translateY(-1px);
+}
+
 .acknowledgement {
   background: var(--surface);
   border: 1px solid var(--border);

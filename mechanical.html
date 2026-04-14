@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Sense Hat — SFSU Mechatronics (ENGR 415)</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <!-- https://html-preview.github.io/?url=https://github.com/ahumanpeople/engr_415_final_project/blob/main/index.html -->
+</head>
+<body>
+
+  <!-- ─── NAV ─────────────────────────────────────────────────────── -->
+  <nav id="navbar">
+    <div class="nav-inner">
+      <span class="nav-logo">The Sense Hat</span>
+      <button class="nav-toggle" aria-label="Toggle menu" id="navToggle">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Overview</a></li>
+        <li><a href="mechanical.html">Mechanical</a></li>
+        <li><a href="electrical.html">Electrical</a></li>
+        <li><a href="software.html">Software</a></li>
+        <li><a href="results.html">Results</a></li>
+        <li><a href="team.html">Team</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- ─── MECHANICAL ─────────────────────────────────────────────── -->
+    <section id="mechanical" class="section section-alt">
+      <div class="section-inner">
+        <h2 class="section-title">Mechanical Design</h2>
+
+        <div class="prose">
+          <p>
+            The mechanical design is centered on a classic wide-brimmed black fedora, fully
+            modeled in SolidWorks. The goal was to conceal every electronic component while
+            keeping them accessible for maintenance and iteration.
+          </p>
+          <p>
+            Three VL53L5CX-SATEL Time-of-Flight sensors are mounted along the brim — two at
+            the front for coverage of the user's primary field of motion and one at the rear —
+            providing a near-360° sensing arc. Eight ERM haptic vibration motors are secured just
+            above the brim's inner edge, each corresponding to a directional zone.
+          </p>
+          <p>
+            The STM32 microcontroller and LiPo battery are housed in a laser-cut basswood
+            enclosure mounted on top of the hat's crown. Basswood was selected for its ease of
+            laser-cutting at small scales and adequate thermal dissipation for outdoor use. 3D-printed
+            PLA spacers create the necessary clearance to sandwich the battery and MCU board within
+            the enclosure.
+          </p>
+        </div>
+
+        <!-- CAD model images -->
+        <div class="img-row">
+          <figure class="img-block">
+            <div class="img-placeholder">
+              <span class="img-placeholder-icon">🔩</span>
+              <span>SolidWorks model — front view</span>
+              <code>&lt;img src="images/cad-front.jpg" alt="..." /&gt;</code>
+            </div>
+            <!-- <img src="images/cad-front.jpg" alt="SolidWorks front view of the hat" /> -->
+            <figcaption><strong>Fig. 1a</strong> — Front view. ToF Sensors 1 &amp; 2 visible at left-front
+            and right-front positions. MCU + Battery enclosure mounted on crown.</figcaption>
+          </figure>
+          <figure class="img-block">
+            <div class="img-placeholder">
+              <span class="img-placeholder-icon">🔩</span>
+              <span>SolidWorks model — back view</span>
+              <code>&lt;img src="images/cad-back.jpg" alt="..." /&gt;</code>
+            </div>
+            <!-- <img src="images/cad-back.jpg" alt="SolidWorks back view of the hat" /> -->
+            <figcaption><strong>Fig. 1b</strong> — Back view. ToF Sensor 3 positioned at rear of brim
+            to complete rear-hemisphere coverage.</figcaption>
+          </figure>
+        </div>
+
+        <div class="img-row">
+          <figure class="img-block">
+            <div class="img-placeholder">
+              <span class="img-placeholder-icon">⚙️</span>
+              <span>Underside view — haptic motors &amp; FSR sensors</span>
+              <code>&lt;img src="images/underside-left.jpg" alt="..." /&gt;</code>
+            </div>
+            <!-- <img src="images/underside-left.jpg" alt="Underside view showing haptic motors" /> -->
+            <figcaption><strong>Fig. 2a</strong> — Underside rear view. Haptic vibration motors at
+            back-left and back-right positions, seated just above the inner brim.</figcaption>
+          </figure>
+          <figure class="img-block">
+            <div class="img-placeholder">
+              <span class="img-placeholder-icon">⚙️</span>
+              <span>Underside view — front FSR sensors</span>
+              <code>&lt;img src="images/underside-right.jpg" alt="..." /&gt;</code>
+            </div>
+            <!-- <img src="images/underside-right.jpg" alt="Underside view showing FSR sensors" /> -->
+            <figcaption><strong>Fig. 2b</strong> — Underside front view. FSR pressure sensors on the
+            inner brim detect when the hat is being worn, enabling automatic power control.</figcaption>
+          </figure>
+        </div>
+
+        <div class="img-row">
+          <figure class="img-block">
+            <div class="img-placeholder">
+              <span class="img-placeholder-icon">🔌</span>
+              <span>Isometric view of electronics enclosure</span>
+              <code>&lt;img src="images/elec_enclosure_iso.jpg" alt="..." /&gt;</code>
+            </div>
+            <!-- <img src="images/elec_enclosure_iso.jpg" alt="Isometric view of electronics enclosure" /> -->
+            <figcaption><strong>Fig. 3a</strong> — Isometric view of the electronics enclosure. Visible is the 
+            annular snap-on clip holding the top lid to the main enclosure, as well as teardrop ventilation holes for heat dissipation.</figcaption>
+          </figure>
+          <figure class="img-block">
+            <div class="img-placeholder">
+              <span class="img-placeholder-icon">🔌</span>
+              <span>Internal view of electronics enclosure</span>
+              <code>&lt;img src="images/elec_enclosure_internal.jpg" alt="..." /&gt;</code>
+            </div>
+            <!-- <img src="images/elec_enclosure_internal.jpg" alt="Internal view of electronics enclosure" /> -->
+            <figcaption><strong>Fig. 3b</strong> — Internal view of the electronics enclosure. Inside the STM32 microcontroller, 
+            LiPo battery, and other electronic components are visible.</figcaption>
+          </figure>
+        </div>
+
+        <h3 class="subsection-title">Bill of Materials — Mechanical</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Part</th>
+                <th>Description</th>
+                <th>Vendor</th>
+                <th>Unit Price</th>
+                <th>Qty</th>
+                <th>Subtotal</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>Mini Vibration Motors</td>
+                <td>DC 3V 12000rpm Flat Coin Button Haptic (10-Pack)</td>
+                <td>Amazon</td>
+                <td>$5.99</td>
+                <td>1</td>
+                <td>$5.99</td>
+              </tr>
+              <tr>
+                <td>6</td>
+                <td>Black Fedora Flat Hat</td>
+                <td>Classic Wide Brim Cap</td>
+                <td>Amazon</td>
+                <td>$17.99</td>
+                <td>1</td>
+                <td>$17.99</td>
+              </tr>
+              <tr>
+                <td>9</td>
+                <td>S8050 NPN Transistor</td>
+                <td>Motor driver transistor</td>
+                <td>In-house</td>
+                <td>—</td>
+                <td>8</td>
+                <td>$0</td>
+              </tr>
+              <tr>
+                <td>12</td>
+                <td>Basswood Sheets 3mm</td>
+                <td>12″×16″ hardwood for laser-cut enclosure</td>
+                <td>Amazon</td>
+                <td>$16.99</td>
+                <td>1</td>
+                <td>$16.99</td>
+              </tr>
+              <tr>
+                <td>13</td>
+                <td>Bambu PLA Filament</td>
+                <td>1 kg spool for 3D-printed spacers</td>
+                <td>In-house</td>
+                <td>—</td>
+                <td>—</td>
+                <td>$0</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ─── FOOTER ────────────────────────────────────────────────────── -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span>The Sense Hat &mdash; ENGR 415 Mechatronics · SFSU SoE · Spring 2026</span>
+      <span>Sense CARE Team</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Sense Hat — SFSU Mechatronics (ENGR 415)</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <!-- https://html-preview.github.io/?url=https://github.com/ahumanpeople/engr_415_final_project/blob/main/index.html -->
+</head>
+<body>
+
+  <!-- ─── NAV ─────────────────────────────────────────────────────── -->
+  <nav id="navbar">
+    <div class="nav-inner">
+      <span class="nav-logo">The Sense Hat</span>
+      <button class="nav-toggle" aria-label="Toggle menu" id="navToggle">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Overview</a></li>
+        <li><a href="mechanical.html">Mechanical</a></li>
+        <li><a href="electrical.html">Electrical</a></li>
+        <li><a href="software.html">Software</a></li>
+        <li><a href="results.html">Results</a></li>
+        <li><a href="team.html">Team</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- ─── SOFTWARE ───────────────────────────────────────────────── -->
+    <section id="software" class="section section-alt">
+      <div class="section-inner">
+        <h2 class="section-title">Software Design</h2>
+
+        <div class="prose">
+          <p>
+            The embedded firmware is structured as a <strong>finite state machine (FSM)</strong>
+            that manages the full sensing-to-feedback pipeline. The system boots into a low-power
+            idle state and activates only when the FSR sensors detect the hat being worn — reducing
+            battery consumption during periods of non-use.
+          </p>
+        </div>
+
+        <h3 class="subsection-title">Embedded System Requirements</h3>
+        <div class="tag-list">
+          <span class="tag">2× interrupt signals (FSR wear detection)</span>
+          <span class="tag">I²C bus (4 ToF sensors)</span>
+          <span class="tag">8× PWM GPIO (haptic motors)</span>
+          <span class="tag">UART (debug/PC comms)</span>
+          <span class="tag">Low-power sleep modes</span>
+          <span class="tag">60 Hz sampling timer</span>
+        </div>
+
+        <!-- FSM diagram placeholder -->
+        <figure class="img-block">
+          <div class="img-placeholder">
+            <span class="img-placeholder-icon">🔄</span>
+            <span>Finite State Machine diagram</span>
+            <code>&lt;img src="images/fsm-diagram.jpg" alt="..." /&gt;</code>
+          </div>
+          <!-- <img src="images/fsm-diagram.jpg" alt="Finite State Diagram for Embedded System Software" /> -->
+          <figcaption><strong>Fig. 5</strong> — Finite State Diagram for the embedded system.
+          Pressure detection triggers the Start → Collect Data → Process Data → Set/Update PWM
+          loop. Loss of hat pressure at any state routes to Stop.</figcaption>
+        </figure>
+
+        <h3 class="subsection-title">Sensor Spatial Mapping</h3>
+        <div class="prose">
+          <p>
+            Each VL53L5CX-SATEL operates in a 3×3 multi-zone mode, returning 9 simultaneous
+            distance measurements per sensor. With three sensors, the system collects up to
+            27 depth values per frame at up to 60 Hz.
+          </p>
+          <p>
+            A <strong>majority-voting filter</strong> is applied across 5–10 consecutive frames:
+            for each spatial zone, the most frequently occurring distance value is selected as the
+            representative reading. This eliminates noise and outlier measurements before the
+            system decides whether to activate a motor — improving reliability and reducing
+            false triggers.
+          </p>
+        </div>
+
+        <!-- Sensor visualization placeholder -->
+        <figure class="img-block">
+          <div class="img-placeholder">
+            <span class="img-placeholder-icon">📡</span>
+            <span>Sensor zone visualization — multi-zone depth mapping</span>
+            <code>&lt;img src="images/sensor-zones.jpg" alt="..." /&gt;</code>
+          </div>
+          <!-- <img src="images/sensor-zones.jpg" alt="Sensor zone visualization" /> -->
+          <figcaption><strong>Fig. 4</strong> — Visualization of multi-zone sensing coverage.
+          Each sensor returns a 3×3 matrix of depth readings, organized into an array
+          representing the spatial environment around the hat.</figcaption>
+        </figure>
+
+        <h3 class="subsection-title">Control Pseudocode</h3>
+        <pre class="code-block"><code>Interrupt — Start on Pressure Detected
+
+LOOP  // Sensor collection
+    New readings → Map[8×4]  (4 sensors × 8 zones)
+    SAVE MAP[1], MAP[2], MAP[3], MAP[4]
+    COMPARE MAPS  (majority voting)
+    Final MAP READY
+END LOOP
+
+LOOP  // Motor control
+    RESTART GPIO
+    NearDistance[32] = 0
+    NearLocation[32] = 0
+
+    FOR each zone i in Map:
+        IF Map[i] &lt; threshold (e.g. 3 m):
+            NearDistance[i] = Map[i]
+            NearLocation[i] = i
+
+    SWITCH NearLocation:
+        CASE 1–8:
+            Set PWM duty cycle ∝ NearDistance strength
+            WAIT 50 ms
+            RESTART GPIO
+END LOOP
+
+Interrupt — Stop on No Pressure Detected</code></pre>
+
+        <div class="prose">
+          <p>
+            At the end of each control cycle, all GPIO outputs are reset to logic-low as a safety
+            measure. A watchdog timer resets the system if any loop stalls, ensuring the device
+            never locks up in an uncontrolled state.
+          </p>
+        </div>
+      </div>
+    </section>
+
+  <!-- ─── FOOTER ────────────────────────────────────────────────────── -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span>The Sense Hat &mdash; ENGR 415 Mechatronics · SFSU SoE · Spring 2026</span>
+      <span>Sense CARE Team</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

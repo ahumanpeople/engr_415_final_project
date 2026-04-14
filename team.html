@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Sense Hat — SFSU Mechatronics (ENGR 415)</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <!-- https://html-preview.github.io/?url=https://github.com/ahumanpeople/engr_415_final_project/blob/main/index.html -->
+</head>
+<body>
+
+  <!-- ─── NAV ─────────────────────────────────────────────────────── -->
+  <nav id="navbar">
+    <div class="nav-inner">
+      <span class="nav-logo">The Sense Hat</span>
+      <button class="nav-toggle" aria-label="Toggle menu" id="navToggle">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Overview</a></li>
+        <li><a href="mechanical.html">Mechanical</a></li>
+        <li><a href="electrical.html">Electrical</a></li>
+        <li><a href="software.html">Software</a></li>
+        <li><a href="results.html">Results</a></li>
+        <li><a href="team.html">Team</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- ─── TEAM ───────────────────────────────────────────────────── -->
+    <section id="team" class="section section-alt">
+      <div class="section-inner">
+        <h2 class="section-title">Sense CARE Team</h2>
+        <p class="section-intro">
+          <br>
+          ENGR 415 Mechatronics, Spring 2026
+          <br>
+          School of Engineering, San Francisco State University
+          <br>
+          Advised by David Quintero, Ph.D.
+        </p>
+
+        <div class="team-grid">
+
+          <div class="team-card">
+            <figure class="team-photo">
+              <div class="img-placeholder small">
+                <span class="img-placeholder-icon">👤</span>
+                <code>images/team-milton.jpg</code>
+              </div>
+              <!-- <img src="images/team-milton.jpg" alt="Milton Tinoco" /> -->
+            </figure>
+            <h3>Milton Tinoco</h3>
+            <p class="team-role">Software Lead</p>
+            <p>Responsible for embedded system software architecture, finite state machine
+            implementation, sensor communication libraries, and full system integration &amp;
+            debugging at the firmware level.</p>
+            <a href="https://www.linkedin.com/in/miltonmtinoco/" class="btn-contact">LinkedIn Profile</a>
+          </div>
+
+          <div class="team-card">
+            <figure class="team-photo">
+              <div class="img-placeholder small">
+                <span class="img-placeholder-icon">👤</span>
+                <code>images/team-kevin.jpg</code>
+              </div>
+              <!-- <img src="images/team-kevin.jpg" alt="Kevin Huang" /> -->
+            </figure>
+            <h3>Kevin Huang</h3>
+            <p class="team-role">Electrical Lead</p>
+            <p>Responsible for power architecture and circuit design, electrical schematics,
+            component selection, breadboard prototyping, and testing &amp; debugging of all
+            electronic subsystems.</p>
+            <a href="https://www.linkedin.com/in/kevin-huang-7332212b8/" class="btn-contact">LinkedIn Profile</a>
+          </div>
+
+          <div class="team-card">
+            <figure class="team-photo">
+              <div class="img-placeholder small">
+                <span class="img-placeholder-icon">👤</span>
+                <code>images/team-jose.jpg</code>
+              </div>
+              <!-- <img src="images/team-jose.jpg" alt="Jose Barrios" /> -->
+            </figure>
+            <h3>Jose Barrios</h3>
+            <p class="team-role">Mechanical Lead</p>
+            <p>Responsible for the MCU and battery enclosure design, sensor and motor mounting
+            on the hat, component concealment, and mechanical testing &amp; structural debugging.</p>
+            <a href="https://www.linkedin.com/in/jbarrios03" class="btn-contact">LinkedIn Profile</a>
+          </div>
+
+        </div>
+
+        <div class="acknowledgement">
+          <p>
+            <strong>Course:</strong> ENGR 415-01 Mechatronics &nbsp;·&nbsp;
+            <strong>Instructor:</strong> David Quintero, Ph.D. &nbsp;·&nbsp;
+            <strong>Institution:</strong> San Francisco State University
+          </p>
+          <p>Full Functional Demo: April 28, 2026 &nbsp;·&nbsp; COSE Showcase Audience Live Demo: April 30, 2026</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ─── FOOTER ────────────────────────────────────────────────────── -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span>The Sense Hat &mdash; ENGR 415 Mechatronics · SFSU SoE · Spring 2026</span>
+      <span>Sense CARE Team</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
