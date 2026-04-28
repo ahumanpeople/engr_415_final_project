@@ -36,8 +36,9 @@
       <p class="hero-label">ENGR 415 · Mechatronics · SFSU · Spring 2026</p>
       <h1 class="hero-title">The Sense Hat</h1>
       <p class="hero-subtitle">
-        A 360° haptic obstacle detection system for visually impaired navigation,
-        built into a wide-brimmed hat using Time-of-Flight sensors and an STM32 microcontroller.
+        A 360° field-of-view obstacle detection system with haptic feedback for visually-impaired 
+        individuals. The device is built into a wide-brimmed hat using Time-of-Fight sensors, haptic 
+        motor, gyroscopic sensors, and a STM32 microcontroller.
       </p>
       <div class="hero-meta">
         <span>Milton Tinoco</span>
@@ -71,52 +72,57 @@
 
         <div class="prose">
           <p>
-            Approximately 216 million people worldwide live with some form of visual impairment.
-            Current navigation aids — most notably the white cane — provide only limited environmental
-            awareness and require dedicated training. The Sense Hat addresses this gap by embedding
-            a full 360° obstacle-detection system inside a discreet, everyday wide-brimmed hat.
+            Approximately 216 million people worldwide have a sort of visual impairment. To support 
+            individuals with visual impairments, this project proposes a wearable system that provides haptic 
+            feedback to help users perceive and navigate their surrounding environment, particularly in 
+            indoor settings. Current navigation methods, such as the use of a cane, can assist with obstacle 
+            detection but often require training and provide only limited environmental awareness.
           </p>
           <p>
-            When the user approaches an obstacle, vibration motors integrated into the hat's brim
-            activate with an intensity that scales proportionally to proximity. The user receives
-            spatial, directional feedback without any visual component — no screen, no audio, no
-            device that draws attention in public.
+            The proposed system aims to improve upon these designs by providing a 360° sensing capability, 
+            allowing the user to receive feedback. Additionally, other research projects have explored 
+            integrating a similar system into common clothing items, such as work vests, but we have built 
+            upon this sensing system into a head-worn accessory to maintain a discreet and practical design.
           </p>
         </div>
 
-        <h3 class="subsection-title">Design Objectives</h3>
+        <h3 class="subsection-title" name="design-objectives" id="design-objectives">Design Objectives</h3>
         <div class="card-grid three-col">
           <div class="card">
             <div class="card-icon">⚡</div>
             <h4>Reliability</h4>
-            <p>Consistently detects nearby obstacles during indoor navigation and scales haptic
-            intensity with distance, so the user always knows how close they are.</p>
+            <p>
+              Reliably detect nearby obstacles during indoor navigation, and scales in intensity 
+              as the distance between an object and the user, so the user is fully aware of its surroundings.
+            </p>
           </div>
           <div class="card">
             <div class="card-icon">🎩</div>
             <h4>Discreet &amp; Portable</h4>
-            <p>All electronics are concealed inside the hat's crown and brim. The assembled
-            device remains lightweight and suitable for all-day wear.</p>
+            <p>
+              All electronic components are concealed inside the hat's brim, with an additional enclosure to hold 
+              any larger components, such as the microcontroller and the battery. The assembled device remains 
+              lightweight and suitable for all-day wear.
+            </p>
           </div>
           <div class="card">
             <div class="card-icon">💰</div>
             <h4>Affordability</h4>
-            <p>Designed with low-cost, off-the-shelf components. Total BOM cost comes in at
-            approximately <strong>$157</strong>, making it accessible for real-world adoption.</p>
+            <p>
+              The device should be designed with low-cost, off-the-shelf components, so that the price 
+              remains reasonably affordable for potential users.
+            </p>
           </div>
         </div>
 
         <!-- Overview diagram placeholder -->
         <figure class="img-block">
-          <div class="img-placeholder">
-            <span class="img-placeholder-icon">🗺️</span>
-            <span>Top-view operation diagram — hat detecting walls &amp; person</span>
-            <code>Replace with: &lt;img src="images/overview-topview.jpg" alt="..." /&gt;</code>
-          </div>
-          <!-- <img src="images/overview-topview.jpg" alt="Top-view of the hat detecting surrounding obstacles" /> -->
-          <figcaption>Top-view representation of the Sense Hat during operation. The system
-          detects walls to the north and west and a person to the east, activating the
-          corresponding vibration motors simultaneously.</figcaption>
+          <img src="images/in_progress_on_board_and_screen_2.jpeg" alt="In-progress photos of system at subfunction level" />
+          <figcaption><strong>Figure 0: </strong>In-progress photo of the hat's electronics and embedded system. 
+            The electronics are connected together on an array of breadboard to test their 
+            functionality while all connected together, with the firmware functioning alongside 
+            a 3D map display to better detect and diagnose sensing bugs/issues.
+          </figcaption>
         </figure>
       </div>
     </section>

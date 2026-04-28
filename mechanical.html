@@ -39,92 +39,78 @@
 
         <div class="prose">
           <p>
-            The mechanical design is centered on a classic wide-brimmed black fedora, fully
-            modeled in SolidWorks. The goal was to conceal every electronic component while
-            keeping them accessible for maintenance and iteration.
-          </p>
-          <p>
-            Three VL53L5CX-SATEL Time-of-Flight sensors are mounted along the brim — two at
-            the front for coverage of the user's primary field of motion and one at the rear —
-            providing a near-360° sensing arc. Eight ERM haptic vibration motors are secured just
-            above the brim's inner edge, each corresponding to a directional zone.
-          </p>
-          <p>
-            The STM32 microcontroller and LiPo battery are housed in a laser-cut basswood
-            enclosure mounted on top of the hat's crown. Basswood was selected for its ease of
-            laser-cutting at small scales and adequate thermal dissipation for outdoor use. 3D-printed
-            PLA spacers create the necessary clearance to sandwich the battery and MCU board within
-            the enclosure.
+            The mechanical design is centered on a classic wide-brimmed black fedora, with the 
+            design concept fully modeled in Solidworks. Our design goals were to conceal every 
+            electronic components, keep all of the components accessible for maintenance and 
+            future iteration, and prioritize using low-cost components and manufacturing. Some 
+            components are housed within the hat itself, while others can be found in a 
+            3D-printed electronics housing on the top of the hat.
           </p>
         </div>
 
         <!-- CAD model images -->
         <div class="img-row">
           <figure class="img-block">
-            <div class="img-placeholder">
-              <span class="img-placeholder-icon">🔩</span>
-              <span>SolidWorks model — front view</span>
-              <code>&lt;img src="images/cad-front.jpg" alt="..." /&gt;</code>
-            </div>
-            <!-- <img src="images/cad-front.jpg" alt="SolidWorks front view of the hat" /> -->
-            <figcaption><strong>Fig. 1a</strong> — Front view. ToF Sensors 1 &amp; 2 visible at left-front
-            and right-front positions. MCU + Battery enclosure mounted on crown.</figcaption>
+            <img src="images/hat_assembly_iso_entire_1.PNG" alt="SolidWorks isometric view of the hat" />
+            <figcaption><strong>Figure 1a: </strong>Front view; 5 ToF sensors visible at left-front
+            and right-front positions, electronics enclosure mounted on the hat's crown.</figcaption>
           </figure>
           <figure class="img-block">
-            <div class="img-placeholder">
-              <span class="img-placeholder-icon">🔩</span>
-              <span>SolidWorks model — back view</span>
-              <code>&lt;img src="images/cad-back.jpg" alt="..." /&gt;</code>
-            </div>
-            <!-- <img src="images/cad-back.jpg" alt="SolidWorks back view of the hat" /> -->
-            <figcaption><strong>Fig. 1b</strong> — Back view. ToF Sensor 3 positioned at rear of brim
-            to complete rear-hemisphere coverage.</figcaption>
+            <img src="images/hat_assembly_back.PNG" alt="SolidWorks back view of the hat" />
+            <figcaption><strong>Figure 1b: </strong>Back view; 3 ToF Sensor positioned at rear of brim
+            showing rear-hemisphere coverage.</figcaption>
           </figure>
         </div>
 
+        <div class="prose">
+          <p>
+            Six VL53L5CX-SATEL Time-of-Flight sensors are mounted along the outside of the brim, 
+            evenly spaced to provide a full 360° proximity vision arc. Eight ERM haptic vibration 
+            motors are secured on the inner edge of the brim, each corresponding to a different zone
+            around the user. There are also two force-sensing resistors placed to detect whether or not 
+            a user is currently using the hat device or not.
+          </p>
+        </div>
+
+        <!-- CAD model images -->
         <div class="img-row">
           <figure class="img-block">
-            <div class="img-placeholder">
-              <span class="img-placeholder-icon">⚙️</span>
-              <span>Underside view — haptic motors &amp; FSR sensors</span>
-              <code>&lt;img src="images/underside-left.jpg" alt="..." /&gt;</code>
-            </div>
-            <!-- <img src="images/underside-left.jpg" alt="Underside view showing haptic motors" /> -->
-            <figcaption><strong>Fig. 2a</strong> — Underside rear view. Haptic vibration motors at
-            back-left and back-right positions, seated just above the inner brim.</figcaption>
+            <img src="images/hat_assembly_bottom.PNG" alt="Underside view showing haptic motors" />
+            <figcaption><strong>Figure 2a: </strong>Underside view; Haptic vibration motors arranged in a 
+              circular pattern, seated just above the inner brim. FSR sensors also placed here.</figcaption>
           </figure>
           <figure class="img-block">
-            <div class="img-placeholder">
-              <span class="img-placeholder-icon">⚙️</span>
-              <span>Underside view — front FSR sensors</span>
-              <code>&lt;img src="images/underside-right.jpg" alt="..." /&gt;</code>
-            </div>
-            <!-- <img src="images/underside-right.jpg" alt="Underside view showing FSR sensors" /> -->
-            <figcaption><strong>Fig. 2b</strong> — Underside front view. FSR pressure sensors on the
-            inner brim detect when the hat is being worn, enabling automatic power control.</figcaption>
+            <img src="images/hat_assembly_sliced.PNG" alt="Midsection view showing sensors and motors" />
+            <figcaption><strong>Figure 2b: </strong>Midsection view; FSR pressure sensors on the
+            inner brim, alongside ToF sensors, haptic motors, and the hat enclosure also visible.</figcaption>
           </figure>
         </div>
 
+        <div class="prose">
+          <p>
+            The STM32 microcontroller, the Li-ion batteries, the gyroscopic sensor, and the boost 
+            converter are all found inside of the electronics housing mounted on the top of the hat's 
+            crown. The housing is completely made out of 3D-printed PLA, with grooves and vents added to 
+            the housing's design to allow for proper airflow and heat dissipation from the electronics 
+            inside. There is also a heatsink attached to the boost converter placed on top of a basswood 
+            vent, since this components can easily surpass PLA's glass transition temperature (point at 
+            which PLA begins to soften).
+          </p>
+        </div>
+
+        <!-- CAD model images -->
         <div class="img-row">
           <figure class="img-block">
-            <div class="img-placeholder">
-              <span class="img-placeholder-icon">🔌</span>
-              <span>Isometric view of electronics enclosure</span>
-              <code>&lt;img src="images/elec_enclosure_iso.jpg" alt="..." /&gt;</code>
-            </div>
-            <!-- <img src="images/elec_enclosure_iso.jpg" alt="Isometric view of electronics enclosure" /> -->
-            <figcaption><strong>Fig. 3a</strong> — Isometric view of the electronics enclosure. Visible is the 
-            annular snap-on clip holding the top lid to the main enclosure, as well as teardrop ventilation holes for heat dissipation.</figcaption>
+            <img src="images/hat_electronics_enclosure_iso.PNG" alt="Isometric view of electronics enclosure" />
+            <figcaption><strong>Figure 3a: </strong>Isometric view of electronics enclosure; Visible is the 
+            STM32 microcontroller and Li-ion battery housing, as well as teardrop ventilation holes for proper heat 
+            dissipation.</figcaption>
           </figure>
           <figure class="img-block">
-            <div class="img-placeholder">
-              <span class="img-placeholder-icon">🔌</span>
-              <span>Internal view of electronics enclosure</span>
-              <code>&lt;img src="images/elec_enclosure_internal.jpg" alt="..." /&gt;</code>
-            </div>
-            <!-- <img src="images/elec_enclosure_internal.jpg" alt="Internal view of electronics enclosure" /> -->
-            <figcaption><strong>Fig. 3b</strong> — Internal view of the electronics enclosure. Inside the STM32 microcontroller, 
-            LiPo battery, and other electronic components are visible.</figcaption>
+            <img src="images/hat_electronics_enclosure_top_no_lid.PNG" alt="Top-down view of enclosure" />
+            <figcaption><strong>Figure 3b: </strong>Top-down view of enclosure; Electronic components are 
+              visible, as well as both wire and anchoring holes for wire to travel to the inside of the hat and to 
+              sew enclosure to the hat respectively.</figcaption>
           </figure>
         </div>
 

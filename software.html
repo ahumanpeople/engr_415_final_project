@@ -39,13 +39,15 @@
 
         <div class="prose">
           <p>
-            The embedded firmware is structured as a <strong>finite state machine (FSM)</strong>
-            that manages the full sensing-to-feedback pipeline. The system boots into a low-power
-            idle state and activates only when the FSR sensors detect the hat being worn — reducing
-            battery consumption during periods of non-use.
+            The embedded firmware was structured using a <strong>finite state machine (FSM)</strong> that 
+            manages the full sensor to haptic feedback pipeline. The systems boots into a low-power idle 
+            state, and only activates when the FSR sensors detect the hat being worn, reducing battery 
+            consumption during periods of no use. The system also include LED lights for debugging purposes, 
+            as well as additional sensors to best utilize the 3D map created by the ToF sensors.
           </p>
         </div>
 
+        <!--
         <h3 class="subsection-title">Embedded System Requirements</h3>
         <div class="tag-list">
           <span class="tag">2× interrupt signals (FSR wear detection)</span>
@@ -55,48 +57,61 @@
           <span class="tag">Low-power sleep modes</span>
           <span class="tag">60 Hz sampling timer</span>
         </div>
+        -->
 
         <!-- FSM diagram placeholder -->
         <figure class="img-block">
-          <div class="img-placeholder">
-            <span class="img-placeholder-icon">🔄</span>
-            <span>Finite State Machine diagram</span>
-            <code>&lt;img src="images/fsm-diagram.jpg" alt="..." /&gt;</code>
-          </div>
-          <!-- <img src="images/fsm-diagram.jpg" alt="Finite State Diagram for Embedded System Software" /> -->
-          <figcaption><strong>Fig. 5</strong> — Finite State Diagram for the embedded system.
-          Pressure detection triggers the Start → Collect Data → Process Data → Set/Update PWM
-          loop. Loss of hat pressure at any state routes to Stop.</figcaption>
+          <img src="images/sense_hat_state_diagram_with_legend.jpeg" alt="Finite State Diagram for Embedded System Software" />
+          <figcaption><strong>Figure 5: </strong>Finite state diagram for the embedded system.
+          Pressure detection triggers the start sequence, collecting and processing data, setting/updating 
+          PWM loop. Loss of hat pressure at any state routes to Stop.</figcaption>
+        </figure>
+
+        <figure class="img-block">
+          <img src="images/sense_hat_state_transition_table.jpeg" alt="State Transition Table for Embedded System Software" />
+          <figcaption><strong>Figure 6: </strong>State transition table for the embedded system.
+          Represents the diagram sequence seen in Figure 5, detailing what happens during the action occuring 
+          at each state, as well as the event that triggers the current state.</figcaption>
         </figure>
 
         <h3 class="subsection-title">Sensor Spatial Mapping</h3>
         <div class="prose">
           <p>
-            Each VL53L5CX-SATEL operates in a 3×3 multi-zone mode, returning 9 simultaneous
+            Each ToF sensor operates in a 3×3 multi-zone mode, returning 9 simultaneous
             distance measurements per sensor. With three sensors, the system collects up to
             27 depth values per frame at up to 60 Hz.
           </p>
           <p>
-            A <strong>majority-voting filter</strong> is applied across 5–10 consecutive frames:
-            for each spatial zone, the most frequently occurring distance value is selected as the
+            A <strong>majority-voting filter</strong> is applied across 5–10 consecutive frames.
+            For each spatial zone, the most frequently occurring distance value is selected as the
             representative reading. This eliminates noise and outlier measurements before the
-            system decides whether to activate a motor — improving reliability and reducing
+            system decides whether to activate a motor, improving reliability and reducing
             false triggers.
           </p>
         </div>
 
-        <!-- Sensor visualization placeholder -->
-        <figure class="img-block">
-          <div class="img-placeholder">
-            <span class="img-placeholder-icon">📡</span>
-            <span>Sensor zone visualization — multi-zone depth mapping</span>
-            <code>&lt;img src="images/sensor-zones.jpg" alt="..." /&gt;</code>
-          </div>
-          <!-- <img src="images/sensor-zones.jpg" alt="Sensor zone visualization" /> -->
-          <figcaption><strong>Fig. 4</strong> — Visualization of multi-zone sensing coverage.
-          Each sensor returns a 3×3 matrix of depth readings, organized into an array
-          representing the spatial environment around the hat.</figcaption>
-        </figure>
+        <!-- Sensor visualization images -->
+        <div class="img-row">
+          <figure class="img-block">
+            <img src="images/tof_sensor_environ_visual_top.jpg" alt="SolidWorks front view of the hat" />
+            <figcaption>
+              <strong>Figure 7: </strong>(see above) Top-down visualization of multi-zone sensing coverage.
+              Each sensor returns a 3×3 matrix of depth readings, organized into an array
+              representing the spatial environment around the hat. ToF sensors are clearly labelled, with 
+              information about the range and pressure detected also present.
+              <br><br>
+              <strong>Figure 8a: </strong>(see top-right) Second visualization of multi-zone sensing coverage.
+              Viewing mode is adjustable to better simulate the 3D environment mapped out by the ToF sensors.
+              <br><br>
+              <strong>Figure 8b: </strong>(see bottom-right) Third visualization of the multi-zone sensing coverage. 
+              Demonstrate 3D view from another point of view.
+          </figcaption>
+          </figure>
+          <figure class="img-block">
+            <img src="images/tof_sensor_environ_visual_dyna_1.jpg" alt="SolidWorks back view of the hat" />
+            <img src="images/tof_sensor_environ_visual_dyna_3.jpg">
+          </figure>
+        </div>
 
         <h3 class="subsection-title">Control Pseudocode</h3>
         <pre class="code-block"><code>Interrupt — Start on Pressure Detected
@@ -129,9 +144,15 @@ Interrupt — Stop on No Pressure Detected</code></pre>
 
         <div class="prose">
           <p>
-            At the end of each control cycle, all GPIO outputs are reset to logic-low as a safety
-            measure. A watchdog timer resets the system if any loop stalls, ensuring the device
-            never locks up in an uncontrolled state.
+            This system was designed with several safety measures to ensure reliable and user-safe operation. 
+            At the end of each control loop, all GPIO outputs are reset to their default state (logic low). This 
+            guarantees that if any pin is incorrectly configured or an error occurs, the system will default to 
+            zero output, preventing unintended vibration. Additionally, a timer mechanism is integrated to allow 
+            the system to reset if it becomes stuck in a loop, improving robustness and fault recovery. The system 
+            is also implemented using a finite state machine (FSM), ensuring that all operations follow a 
+            well-defined and logical sequence of states. For user safety and control, the system includes a 
+            pressure-based mechanism inside the hat. If the user removes the hat (i.e., pressure is released), the 
+            system immediately resets from any current state, allowing the user to stop the device at any time.
           </p>
         </div>
       </div>

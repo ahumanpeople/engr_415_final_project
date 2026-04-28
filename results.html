@@ -39,11 +39,10 @@
 
         <div class="prose">
           <p>
-            Performance evaluation is grounded in the original design objectives. The primary
-            test consists of a controlled navigation experiment: a participant wearing the Sense
-            Hat attempts to move from a start point to a destination with eyes closed, relying
-            solely on haptic feedback. Observations are recorded across multiple trials in
-            different environments with varying obstacle configurations.
+            Performance evaluation is grounded in our <a href="index.html#design-objectives">original design 
+            objectives</a>. Our test consists of a controlled navigation experiment: a participant wearing the Sense
+            Hat attempts to move from a start point to a destination with their eyes closed, relying
+            solely on haptic feedback to navigate.
           </p>
         </div>
 
@@ -55,8 +54,8 @@
             <code>&lt;img src="images/testing.jpg" alt="..." /&gt;</code>
           </div>
           <!-- <img src="images/testing.jpg" alt="User wearing and testing the Sense Hat" /> -->
-          <figcaption>Controlled navigation test with a participant relying on haptic feedback
-          alone to avoid obstacles.</figcaption>
+          <figcaption><strong>Figure 9: </strong> Controlled navigation test with a participant relying on 
+          haptic feedback alone to avoid obstacles.</figcaption>
         </figure>
 
         <h3 class="subsection-title">Evaluation Criteria</h3>
@@ -64,8 +63,8 @@
           <div class="card">
             <div class="card-icon">👁️</div>
             <h4>Discreteness</h4>
-            <p>Visual inspection of the final product confirms that no electronic components
-            are visible from the outside. The hat appearance is consistent with a standard
+            <p>Visual inspection to confirm that no electronic components
+            are visible from the outside; hat appearance is consistent with standard
             wide-brimmed fedora.</p>
           </div>
           <div class="card">
@@ -77,8 +76,8 @@
           <div class="card">
             <div class="card-icon">⚖️</div>
             <h4>Wearability</h4>
-            <p>The assembled hat is evaluated for comfort, weight distribution, and ease of
-            donning and doffing — including automatic on/off via FSR pressure sensing.</p>
+            <p>The assembled hat is evaluated for comfort, weight distribution, and ease of use, 
+              including automatic on/off via FSR pressure sensing.</p>
           </div>
         </div>
 
@@ -87,8 +86,8 @@
           <div class="challenge">
             <span class="challenge-label">Moisture &amp; Sweat</span>
             <p>Electronic components must be insulated from direct contact with the user's skin.
-            The laser-cut housing provides a physical barrier while allowing passive heat
-            dissipation from the MCU and battery.</p>
+            The FDM-printed electronics housing provides a physical barrier while allowing passive heat
+            dissipation from the STM32, battery, and boost converter.</p>
           </div>
           <div class="challenge">
             <span class="challenge-label">Hat Orientation</span>
@@ -107,23 +106,15 @@
         <!-- Additional results photos -->
         <div class="img-row">
           <figure class="img-block">
-            <div class="img-placeholder">
-              <span class="img-placeholder-icon">📷</span>
-              <span>Build photo — electronics assembly</span>
-              <code>&lt;img src="images/build-electronics.jpg" alt="..." /&gt;</code>
-            </div>
-            <!-- <img src="images/build-electronics.jpg" alt="Electronics assembly" /> -->
-            <figcaption>Electronics assembly on breadboard prior to integration into the hat.</figcaption>
+            <img src="images/in_progress_system_on_breadboards.jpeg" alt="Electronics assembly" />
+            <figcaption><strong>Figure 10: </strong> assembly on breadboard prior to integration into the hat, 
+              including ToF sensors and sensor circuits, accelerometer, and temporary power-supplying 
+              components.</figcaption>
           </figure>
           <figure class="img-block">
-            <div class="img-placeholder">
-              <span class="img-placeholder-icon">📷</span>
-              <span>Build photo — laser-cut housing</span>
-              <code>&lt;img src="images/build-housing.jpg" alt="..." /&gt;</code>
-            </div>
-            <!-- <img src="images/build-housing.jpg" alt="Laser-cut basswood housing" /> -->
-            <figcaption>Laser-cut basswood housing for the STM32 Nucleo board and LiPo battery,
-            mounted on the hat's crown.</figcaption>
+            <img src="images/in_progress_elec_housing.jpeg" alt="PLA-printed housing" />
+            <figcaption><strong>Figure 11: </strong>FDM-printed housing made out of PLA for the STM32 Nucleo board, LiPo battery, 
+              accelerometer, and boost converter mounted on the hat's crown.</figcaption>
           </figure>
         </div>
       </div>
