@@ -51,6 +51,87 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+body.intro-active {
+  overflow: hidden;
+}
+
+body.intro-active #navbar,
+body.intro-active .hero,
+body.intro-active main {
+  opacity: 0;
+  transform: translateY(10px);
+  animation: page-rise-in 1.15s ease 2.05s forwards;
+}
+
+.intro-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(circle at 50% 42%, rgba(82, 121, 111, 0.24), transparent 34rem),
+    #0f1110;
+  opacity: 1;
+  pointer-events: none;
+  animation: intro-fade-away 3.45s ease forwards;
+}
+
+.intro-title {
+  font-family: var(--font-display);
+  color: #f5f1ea;
+  font-size: clamp(3rem, 8vw, 7rem);
+  line-height: 0.95;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(14px) scale(0.97);
+  animation: intro-title-rise 2.5s ease forwards;
+}
+
+@keyframes intro-title-rise {
+  0% {
+    opacity: 0;
+    transform: translateY(14px) scale(0.97);
+  }
+  34%, 72% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-10px) scale(1.02);
+  }
+}
+
+@keyframes intro-fade-away {
+  0%, 62% { opacity: 1; }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+@keyframes page-rise-in {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro-screen {
+    animation-duration: 0.7s;
+  }
+
+  .intro-title {
+    animation-duration: 0.7s;
+  }
+}
+
 img {
   display: block;
   width: 100%;
@@ -192,20 +273,82 @@ a:hover { text-decoration: underline; }
   display: inline-block;
   margin-top: 0.5rem;
   padding: 0.65rem 1.4rem;
+  border: 0;
   background: var(--accent);
   color: #fff;
   border-radius: var(--radius);
+  font-family: var(--font-body);
   font-size: 0.88rem;
   font-weight: 500;
   letter-spacing: 0.02em;
   transition: background var(--transition), transform var(--transition);
   align-self: flex-start;
+  cursor: pointer;
 }
 
 .btn-primary:hover {
   background: var(--accent-mid);
   text-decoration: none;
   transform: translateY(-1px);
+}
+
+/* Hero motion preview */
+.hero-motion-card {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.95rem;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.motion-card-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding: 0.15rem 0.1rem 0.25rem;
+}
+
+.motion-card-header span {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--accent);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.motion-card-header strong {
+  max-width: 22rem;
+  color: var(--text-primary);
+  font-size: clamp(1.25rem, 2.4vw, 1.85rem);
+  line-height: 1.05;
+  font-weight: 700;
+}
+
+.motion-media-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: stretch;
+}
+
+.motion-video {
+  width: 100%;
+  height: 100%;
+  min-height: 180px;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  object-position: center 45%;
+  border: none;
+  border-radius: var(--radius);
+  background: var(--bg-alt);
+  box-shadow: 0 10px 28px rgba(26, 25, 22, 0.13);
+}
+
+.motion-video-feature {
+  aspect-ratio: 16 / 12.9;
 }
 
 .hero-image-wrap {
@@ -384,6 +527,17 @@ figcaption {
   gap: 0.75rem;
 }
 
+.cad-showcase .section-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cad-showcase .section-title {
+  align-self: center;
+  text-align: center;
+}
+
 .model-block model-viewer {
   width: 100%;
   height: min(68vh, 620px);
@@ -404,23 +558,6 @@ figcaption {
   color: var(--accent);
   font-style: normal;
   font-weight: 500;
-}
-
-.orientation-readout {
-  align-self: flex-start;
-  padding: 0.45rem 0.65rem;
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  color: var(--muted);
-  background: rgba(255, 255, 255, 0.72);
-  font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
-  font-size: 0.82rem;
-  line-height: 1.4;
-}
-
-.orientation-readout span {
-  color: var(--text);
-  font-weight: 700;
 }
 
 /* ── Tables ─────────────────────────────────────────────── */
@@ -729,6 +866,10 @@ tbody tr:hover td { background: var(--accent-pale); }
   .nav-toggle { display: flex; }
 
   .hero { padding: 2rem 1.25rem; gap: 2rem; }
+
+  .motion-video {
+    aspect-ratio: 1 / 0.78;
+  }
 
   .section { padding: var(--section-v) 1.25rem; }
 
