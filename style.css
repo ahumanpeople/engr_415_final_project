@@ -219,6 +219,16 @@ a:hover { text-decoration: underline; }
   max-width: 420px;
 }
 
+.hero-model {
+  width: 100%;
+  max-width: 520px;
+}
+
+.hero-model model-viewer {
+  height: min(58vh, 520px);
+  min-height: 380px;
+}
+
 /* ── Sections ───────────────────────────────────────────── */
 .section {
   padding: var(--section-v) 2rem;
@@ -366,6 +376,51 @@ figcaption {
   font-style: italic;
   line-height: 1.5;
   padding: 0 0.25rem;
+}
+
+.model-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.model-block model-viewer {
+  width: 100%;
+  height: min(68vh, 620px);
+  min-height: 430px;
+  border: 1px solid var(--border-mid);
+  border-radius: var(--radius);
+  background:
+    linear-gradient(90deg, rgba(26, 25, 22, 0.09) 1px, transparent 1px),
+    linear-gradient(0deg, rgba(26, 25, 22, 0.09) 1px, transparent 1px),
+    radial-gradient(circle at 50% 42%, #c8ced0 0, #aeb8bd 48%, #98a4aa 100%);
+  background-size: 36px 36px, 36px 36px, 100% 100%;
+  box-shadow: var(--shadow);
+}
+
+.model-download {
+  display: inline-flex;
+  margin-left: 0.35rem;
+  color: var(--accent);
+  font-style: normal;
+  font-weight: 500;
+}
+
+.orientation-readout {
+  align-self: flex-start;
+  padding: 0.45rem 0.65rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--muted);
+  background: rgba(255, 255, 255, 0.72);
+  font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+  font-size: 0.82rem;
+  line-height: 1.4;
+}
+
+.orientation-readout span {
+  color: var(--text);
+  font-weight: 700;
 }
 
 /* ── Tables ─────────────────────────────────────────────── */
@@ -640,6 +695,7 @@ tbody tr:hover td { background: var(--accent-pale); }
 
   .hero-image-wrap { order: -1; }
   .hero-img { max-width: 340px; margin: 0 auto; }
+  .hero-model { max-width: 520px; margin: 0 auto; }
 
   .three-col { grid-template-columns: repeat(2, 1fr); }
 
@@ -690,4 +746,14 @@ tbody tr:hover td { background: var(--accent-pale); }
   .code-block code { font-size: 0.76rem; }
 
   th, td { padding: 0.55rem 0.75rem; }
+
+  .model-block model-viewer {
+    height: 56vh;
+    min-height: 340px;
+  }
+
+  .hero-model model-viewer {
+    height: 48vh;
+    min-height: 320px;
+  }
 }

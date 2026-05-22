@@ -88,4 +88,36 @@
     });
   });
 
+  /* Live camera orientation under CAD models */
+  const setupOrientationReadouts = () => {
+    document.querySelectorAll('.model-block model-viewer').forEach(model => {
+      const readout = model.closest('.model-block')?.querySelector('.orientation-readout');
+      if (!readout || typeof model.getCameraOrbit !== 'function') return;
+
+      const xValue = readout.querySelector('[data-axis="x"]');
+      const yValue = readout.querySelector('[data-axis="y"]');
+      const zValue = readout.querySelector('[data-axis="z"]');
+      const toDegrees = radians => (radians * 180) / Math.PI;
+      const formatAngle = value => `${toDegrees(value).toFixed(1)}deg`;
+      const formatDistance = value => Number.isFinite(value) ? value.toFixed(2) : 'auto';
+
+      const updateOrientationReadout = () => {
+        const orbit = model.getCameraOrbit();
+        xValue.textContent = formatAngle(orbit.phi);
+        yValue.textContent = formatAngle(orbit.theta);
+        zValue.textContent = formatDistance(orbit.radius);
+      };
+
+      model.addEventListener('load', updateOrientationReadout);
+      model.addEventListener('camera-change', updateOrientationReadout);
+      updateOrientationReadout();
+    });
+  };
+
+  if (window.customElements) {
+    customElements.whenDefined('model-viewer').then(setupOrientationReadouts);
+  } else {
+    setupOrientationReadouts();
+  }
+
 })();

@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>The Sense Hat — SFSU Mechatronics (ENGR 415)</title>
   <link rel="stylesheet" href="style.css" />
+  <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.2.0/model-viewer.min.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
@@ -50,15 +51,26 @@
       <a href="#overview" class="btn-primary">Explore the Project</a>
     </div>
 
-    <!-- Hero image placeholder -->
     <div class="hero-image-wrap">
-      <figure class="img-block hero-img">
-        <div class="img-placeholder">
-          <span class="img-placeholder-icon">🎩</span>
-          <span>Hero image — assembled Sense Hat</span>
-          <code>Replace src in &lt;img&gt; below</code>
+      <figure class="model-block hero-model">
+        <model-viewer
+          src="assets/hat_assembly2.glb"
+          poster="images/hat_assembly_iso_entire_1.PNG"
+          alt="Interactive 3D model of The Sense Hat assembly"
+          camera-controls
+          touch-action="pan-y"
+          shadow-intensity="1.1"
+          exposure="0.65"
+          environment-image="neutral"
+          camera-orbit="-1.1deg 22deg 0.72m">
+        </model-viewer>
+        <figcaption>
+          <strong>Interactive CAD Model: </strong>Drag to rotate, scroll to zoom.
+          <a class="model-download" href="assets/hat_assembly2.glb" download="sense-hat-assembly.glb">Download GLB</a>
+        </figcaption>
+        <div class="orientation-readout" aria-live="polite">
+          Orientation: X <span data-axis="x">--</span> | Y <span data-axis="y">--</span> | Z <span data-axis="z">--</span>
         </div>
-        <!-- <img src="images/hero-hat.jpg" alt="The Sense Hat assembled" /> -->
       </figure>
     </div>
   </header>

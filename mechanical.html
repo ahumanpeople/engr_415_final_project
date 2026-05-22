@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>The Sense Hat — SFSU Mechatronics (ENGR 415)</title>
   <link rel="stylesheet" href="style.css" />
+  <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.2.0/model-viewer.min.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
@@ -47,6 +48,27 @@
             3D-printed electronics housing on the top of the hat.
           </p>
         </div>
+
+        <figure class="model-block">
+          <model-viewer
+            src="assets/hat_assembly2.glb"
+            poster="images/hat_assembly_iso_entire_1.PNG"
+            alt="Interactive 3D model of The Sense Hat assembly"
+            camera-controls
+            touch-action="pan-y"
+            shadow-intensity="1.1"
+            exposure="0.65"
+            environment-image="neutral"
+            camera-orbit="-1.1deg 22deg 0.72m">
+          </model-viewer>
+          <figcaption>
+            <strong>Interactive CAD Model: </strong>Drag to rotate, scroll to zoom, or download the GLB file.
+            <a class="model-download" href="assets/hat_assembly2.glb" download="sense-hat-assembly.glb">Download 3D model</a>
+          </figcaption>
+          <div class="orientation-readout" aria-live="polite">
+            Orientation: X <span data-axis="x">--</span> | Y <span data-axis="y">--</span> | Z <span data-axis="z">--</span>
+          </div>
+        </figure>
 
         <!-- CAD model images -->
         <div class="img-row">
