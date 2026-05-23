@@ -109,6 +109,67 @@
 
   revealTargets.forEach(el => revealObserver.observe(el));
 
+  document.querySelectorAll('.diagram-popout').forEach(diagramFigure => {
+    const diagramFrame = diagramFigure.querySelector('.diagram-frame');
+    const modalId = diagramFigure.getAttribute('data-modal-target');
+    const diagramModal = modalId ? document.getElementById(modalId) : null;
+    const diagramClose = diagramModal?.querySelector('.diagram-modal-close');
+
+    if (!diagramFrame || !diagramModal || !diagramClose) return;
+
+    diagramFigure.addEventListener('pointermove', event => {
+      const rect = diagramFigure.getBoundingClientRect();
+      const x = (event.clientX - rect.left) / rect.width;
+      const y = (event.clientY - rect.top) / rect.height;
+      const rotateY = (x - 0.5) * 8;
+      const rotateX = (0.5 - y) * 8;
+
+      diagramFrame.style.setProperty('--rx', `${rotateX.toFixed(2)}deg`);
+      diagramFrame.style.setProperty('--ry', `${rotateY.toFixed(2)}deg`);
+      diagramFrame.style.setProperty('--mx', `${(x * 100).toFixed(1)}%`);
+      diagramFrame.style.setProperty('--my', `${(y * 100).toFixed(1)}%`);
+    });
+
+    diagramFigure.addEventListener('pointerleave', () => {
+      diagramFrame.style.removeProperty('--rx');
+      diagramFrame.style.removeProperty('--ry');
+      diagramFrame.style.removeProperty('--mx');
+      diagramFrame.style.removeProperty('--my');
+    });
+
+    const openDiagram = () => {
+      diagramModal.classList.add('open');
+      diagramModal.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('modal-open');
+      diagramClose.focus();
+    };
+
+    const closeDiagram = () => {
+      diagramModal.classList.remove('open');
+      diagramModal.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('modal-open');
+      diagramFigure.focus();
+    };
+
+    diagramFigure.addEventListener('click', openDiagram);
+    diagramFigure.addEventListener('keydown', event => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        openDiagram();
+      }
+    });
+
+    diagramClose.addEventListener('click', closeDiagram);
+    diagramModal.addEventListener('click', event => {
+      if (event.target === diagramModal) closeDiagram();
+    });
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape' && diagramModal.classList.contains('open')) {
+        closeDiagram();
+      }
+    });
+  });
+
   /* ── Smooth scroll offset for sticky nav ──────────────── */
   // Adjusts anchor scroll so content isn't hidden under navbar
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {

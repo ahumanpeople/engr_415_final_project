@@ -465,6 +465,73 @@ a:hover { text-decoration: underline; }
   line-height: 1.6;
 }
 
+.repo-panel {
+  margin: 1.2rem 0 1.8rem;
+  padding: 1.25rem;
+  background: linear-gradient(135deg, #f4f8f5 0%, #ffffff 100%);
+  border: 1px solid #b7d4c8;
+  border-left: 5px solid var(--accent);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.repo-panel .subsection-title {
+  margin-top: 0;
+}
+
+.repo-links {
+  display: grid;
+  gap: 0.85rem;
+  margin-top: 0.7rem;
+}
+
+.repo-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.1rem;
+  background: #ffffff;
+  border: 1px solid #c5d8ce;
+  border-radius: var(--radius);
+  color: var(--text-primary);
+  text-decoration: none;
+  box-shadow: var(--shadow-soft);
+  transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.repo-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent);
+  box-shadow: 0 16px 34px rgba(34, 83, 62, 0.16);
+  text-decoration: none;
+}
+
+.repo-icon {
+  flex: 0 0 auto;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: var(--accent-pale);
+  border: 1px solid #b7d4c8;
+  border-radius: var(--radius);
+  padding: 0.45rem 0.55rem;
+}
+
+.repo-card strong {
+  display: block;
+  font-size: 1.02rem;
+  font-weight: 500;
+}
+
+.repo-card small {
+  display: block;
+  margin-top: 0.2rem;
+  color: var(--text-secondary);
+  font-size: 0.82rem;
+}
+
 /* ── Image blocks ───────────────────────────────────────── */
 .img-block {
   display: flex;
@@ -511,6 +578,148 @@ a:hover { text-decoration: underline; }
   border-radius: 2px;
   color: var(--accent-mid);
   word-break: break-all;
+}
+
+.demo-video-block {
+  margin-top: 1.5rem;
+  width: min(100%, 1120px);
+  align-self: center;
+}
+
+.demo-video-embed {
+  width: 100%;
+  min-height: min(72vh, 680px);
+  aspect-ratio: 16 / 9;
+  border: 1px solid var(--border-mid);
+  border-radius: var(--radius);
+  background: var(--bg-alt);
+  box-shadow: var(--shadow);
+}
+
+.gui-video-block {
+  margin-top: 1.25rem;
+}
+
+.gui-video {
+  display: block;
+  width: 100%;
+  max-height: 76vh;
+  aspect-ratio: 16 / 9;
+  object-fit: contain;
+  background: #101412;
+  border: 1px solid var(--border-mid);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.diagram-popout {
+  cursor: pointer;
+  perspective: 1200px;
+  outline: none;
+}
+
+.diagram-popout:focus-visible .diagram-frame {
+  box-shadow: 0 0 0 3px rgba(41, 112, 79, 0.25), var(--shadow);
+}
+
+.diagram-frame {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius);
+  background: #ffffff;
+  border: 1px solid #c5d8ce;
+  transform-style: preserve-3d;
+  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+  box-shadow: 0 16px 34px rgba(34, 83, 62, 0.14);
+}
+
+.diagram-frame::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  pointer-events: none;
+  background: radial-gradient(circle at var(--mx, 50%) var(--my, 40%), rgba(55, 143, 102, 0.16), transparent 36%);
+  opacity: 0;
+  transition: opacity 0.22s ease;
+  z-index: 1;
+}
+
+.diagram-frame img {
+  display: block;
+  width: 100%;
+  transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateZ(18px) scale(1.015);
+  transition: transform 0.18s ease;
+}
+
+.diagram-popout:hover .diagram-frame {
+  border-color: var(--accent);
+  box-shadow: 0 24px 48px rgba(34, 83, 62, 0.22);
+}
+
+.diagram-popout:hover .diagram-frame::before {
+  opacity: 1;
+}
+
+.diagram-badge {
+  position: absolute;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 2;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #ffffff;
+  background: rgba(26, 25, 22, 0.76);
+  border: 1px solid rgba(255, 255, 255, 0.34);
+  border-radius: var(--radius);
+  padding: 0.45rem 0.65rem;
+  backdrop-filter: blur(8px);
+}
+
+.diagram-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem 2rem;
+  background: rgba(14, 18, 16, 0.86);
+}
+
+.diagram-modal.open {
+  display: flex;
+}
+
+body.modal-open {
+  overflow: hidden;
+}
+
+.diagram-modal img {
+  max-width: min(96vw, 1280px);
+  max-height: 86vh;
+  object-fit: contain;
+  border-radius: var(--radius);
+  background: #ffffff;
+  box-shadow: 0 28px 70px rgba(0, 0, 0, 0.42);
+}
+
+.diagram-modal-close {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.42);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  font: 500 0.82rem var(--font-sans);
+  padding: 0.55rem 0.8rem;
+  cursor: pointer;
+}
+
+.diagram-modal-close:hover {
+  background: rgba(255, 255, 255, 0.2);
 }
 
 figcaption {

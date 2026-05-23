@@ -37,6 +37,33 @@
       <div class="section-inner">
         <h2 class="section-title">Software Design</h2>
 
+        <div class="repo-panel">
+          <h3 class="subsection-title">GitHub Source Code</h3>
+          <div class="repo-links">
+            <a class="repo-card" href="https://github.com/mtinocomarin/STM32-Code-Sence-Hat-Python" target="_blank" rel="noopener">
+              <span class="repo-icon">GitHub</span>
+              <span>
+                <strong>STM32-Code-Sence-Hat-Python</strong>
+                <small>Python visualization and testing tools</small>
+              </span>
+            </a>
+            <a class="repo-card" href="https://github.com/mtinocomarin/STM32-Code-Sence-Hat-V2" target="_blank" rel="noopener">
+              <span class="repo-icon">GitHub</span>
+              <span>
+                <strong>STM32-Code-Sence-Hat-V2</strong>
+                <small>Updated embedded firmware implementation</small>
+              </span>
+            </a>
+            <a class="repo-card" href="https://github.com/mtinocomarin/STM32-Code-Sence-Hat-V1" target="_blank" rel="noopener">
+              <span class="repo-icon">GitHub</span>
+              <span>
+                <strong>STM32-Code-Sence-Hat-V1</strong>
+                <small>Initial embedded firmware prototype</small>
+              </span>
+            </a>
+          </div>
+        </div>
+
         <div class="prose">
           <p>
             The embedded firmware was structured using a <strong>finite state machine (FSM)</strong> that 
@@ -60,87 +87,35 @@
         -->
 
         <!-- FSM diagram placeholder -->
-        <figure class="img-block">
-          <img src="images/sense_hat_state_diagram_with_legend.jpeg" alt="Finite State Diagram for Embedded System Software" />
+        <figure class="img-block diagram-popout" data-modal-target="fsmDiagramModal" tabindex="0" role="button" aria-label="Open finite state machine diagram">
+          <div class="diagram-frame">
+            <img src="images/sense_hat_state_diagram_with_legend.jpeg" alt="Finite State Diagram for Embedded System Software" />
+            <span class="diagram-badge">Open diagram</span>
+          </div>
           <figcaption><strong>Figure 5: </strong>Finite state diagram for the embedded system.
           Pressure detection triggers the start sequence, collecting and processing data, setting/updating 
           PWM loop. Loss of hat pressure at any state routes to Stop.</figcaption>
         </figure>
 
-        <figure class="img-block">
-          <img src="images/sense_hat_state_transition_table.jpeg" alt="State Transition Table for Embedded System Software" />
-          <figcaption><strong>Figure 6: </strong>State transition table for the embedded system.
-          Represents the diagram sequence seen in Figure 5, detailing what happens during the action occuring 
-          at each state, as well as the event that triggers the current state.</figcaption>
-        </figure>
-
-        <h3 class="subsection-title">Sensor Spatial Mapping</h3>
+        <h3 class="subsection-title">GUI Visualization</h3>
         <div class="prose">
           <p>
-            Each ToF sensor operates in a 3×3 multi-zone mode, returning 9 simultaneous
-            distance measurements per sensor. With three sensors, the system collects up to
-            27 depth values per frame at up to 60 Hz.
+            The desktop GUI displays the Sense Hat sensor data as a live spatial map, helping us
+            see how the ToF sensors detect nearby obstacles around the wearer. Incoming distance
+            readings are plotted around the hat model so the team can quickly understand which
+            direction an obstacle is coming from.
           </p>
           <p>
-            A <strong>majority-voting filter</strong> is applied across 5–10 consecutive frames.
-            For each spatial zone, the most frequently occurring distance value is selected as the
-            representative reading. This eliminates noise and outlier measurements before the
-            system decides whether to activate a motor, improving reliability and reducing
-            false triggers.
+            This interface was used during testing to verify sensor coverage, pressure detection,
+            orientation behavior, and motor-response logic. By watching the GUI while moving
+            objects around the prototype, we could diagnose sensing issues and confirm that the
+            software was translating obstacle locations into the correct haptic feedback zones.
           </p>
         </div>
 
-        <!-- Sensor visualization images -->
-        <div class="img-row">
-          <figure class="img-block">
-            <img src="images/tof_sensor_environ_visual_top.jpg" alt="SolidWorks front view of the hat" />
-            <figcaption>
-              <strong>Figure 7: </strong>(see above) Top-down visualization of multi-zone sensing coverage.
-              Each sensor returns a 3×3 matrix of depth readings, organized into an array
-              representing the spatial environment around the hat. ToF sensors are clearly labelled, with 
-              information about the range and pressure detected also present.
-              <br><br>
-              <strong>Figure 8a: </strong>(see top-right) Second visualization of multi-zone sensing coverage.
-              Viewing mode is adjustable to better simulate the 3D environment mapped out by the ToF sensors.
-              <br><br>
-              <strong>Figure 8b: </strong>(see bottom-right) Third visualization of the multi-zone sensing coverage. 
-              Demonstrate 3D view from another point of view.
-          </figcaption>
-          </figure>
-          <figure class="img-block">
-            <img src="images/tof_sensor_environ_visual_dyna_1.jpg" alt="SolidWorks back view of the hat" />
-            <img src="images/tof_sensor_environ_visual_dyna_3.jpg">
-          </figure>
-        </div>
-
-        <h3 class="subsection-title">Control Pseudocode</h3>
-        <pre class="code-block"><code>Interrupt — Start on Pressure Detected
-
-LOOP  // Sensor collection
-    New readings → Map[8×4]  (4 sensors × 8 zones)
-    SAVE MAP[1], MAP[2], MAP[3], MAP[4]
-    COMPARE MAPS  (majority voting)
-    Final MAP READY
-END LOOP
-
-LOOP  // Motor control
-    RESTART GPIO
-    NearDistance[32] = 0
-    NearLocation[32] = 0
-
-    FOR each zone i in Map:
-        IF Map[i] &lt; threshold (e.g. 3 m):
-            NearDistance[i] = Map[i]
-            NearLocation[i] = i
-
-    SWITCH NearLocation:
-        CASE 1–8:
-            Set PWM duty cycle ∝ NearDistance strength
-            WAIT 50 ms
-            RESTART GPIO
-END LOOP
-
-Interrupt — Stop on No Pressure Detected</code></pre>
+        <figure class="img-block gui-video-block">
+          <video class="gui-video" src="videos/guivideoo.mp4" controls muted playsinline preload="metadata"></video>
+        </figure>
 
         <div class="prose">
           <p>
@@ -156,8 +131,11 @@ Interrupt — Stop on No Pressure Detected</code></pre>
           </p>
         </div>
 
-        <figure class="img-block">
-          <img src="images/sense_hat_program_workflow.jpeg" alt="Program Workflow Chart for Embedded System Software">
+        <figure class="img-block diagram-popout" data-modal-target="workflowDiagramModal" tabindex="0" role="button" aria-label="Open program workflow diagram">
+          <div class="diagram-frame">
+            <img src="images/sense_hat_program_workflow.jpeg" alt="Program Workflow Chart for Embedded System Software">
+            <span class="diagram-badge">Open diagram</span>
+          </div>
           <figcaption>
             <strong>Figure 9: </strong> Program workflow diagram for the embedded systems. The diagram goes more in-depth into the logic behind the state diagram and breaks each state down into its corresponding subtasks and functions.
           </figcaption>
@@ -174,6 +152,14 @@ Interrupt — Stop on No Pressure Detected</code></pre>
     </div>
   </footer>
 
+  <div class="diagram-modal" id="fsmDiagramModal" aria-hidden="true" role="dialog" aria-label="Expanded finite state machine diagram">
+    <button class="diagram-modal-close" type="button" aria-label="Close diagram">Close</button>
+    <img src="images/sense_hat_state_diagram_with_legend.jpeg" alt="Expanded finite state machine diagram" />
+  </div>
+  <div class="diagram-modal" id="workflowDiagramModal" aria-hidden="true" role="dialog" aria-label="Expanded program workflow diagram">
+    <button class="diagram-modal-close" type="button" aria-label="Close diagram">Close</button>
+    <img src="images/sense_hat_program_workflow.jpeg" alt="Expanded program workflow diagram" />
+  </div>
   <script src="script.js"></script>
 </body>
 </html>
